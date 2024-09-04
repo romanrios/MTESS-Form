@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import "reset.css";
+
+:root {
+  --yellow: #ffcb02;
+  --orange: #ff7402;
+  --pink: #ff6d7e;
+  --red: #e42153;
+  --blue: #3c3ae5;
+  --grey: #494963;
+  --grey2: #4a4a49;
+}
+
+/* Estilos generales para pantalla */
+body {
+  background-color: #fff;
+  font-family: Inter, sans-serif;
+  font-size: 10pt;
+  margin: 0;
+  padding: 0;
+  min-width: 400px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+header,
+footer {
+  background-color: #f4f4f4;
+  padding: 30px 0;
+  text-align: center;
+  line-height: 2;
+  color: var(--grey);
+}
+
+footer {
+  font-weight: bold;
+}
+
+main {
+  padding: 20px;
+  line-height: 3;
+}
+
+.no-print {
+  display: block; /* Mostrar elementos normalmente en pantalla */
+}
+
+h1 {
+  font-size: 18pt;
+  font-weight: bold;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 11pt;
+}
+
+.form-group {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 8px;
+}
+
+form-group-column {
+  flex-direction: column;
+}
+
+input {
+  font-size: 12pt;
+  font-weight: 500;
+  flex: 1;
+  height: 24px;
+  border-bottom: 1px solid #aaa;
+}
+
+/* Estilos específicos para impresión */
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  @page {
+    size: A4; /* Define tamaño de página A4 */
+    margin: 1cm; /* Márgenes para la impresión */
+  }
+
+  .no-print,
+  header,
+  footer {
+    display: none; /* Ocultar elementos no deseados en impresión */
+  }
+
+  .page-break {
+    page-break-before: always; /* Insertar un salto de página antes de este elemento */
+  }
+}
