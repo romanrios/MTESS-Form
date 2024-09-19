@@ -1,63 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Santa Fe Capacita | Formulario</title>
-    <!-- Enlace a la hoja de estilos -->
-    <link rel="stylesheet" href="./css/styles.css" />
-  </head>
-  <body>
-    <header>
-      <h1>Formulario Santa Fe Capacita</h1>
-      <p>Ministerio de Trabajo, Empleo y Seguridad Social</p>
-    </header>
 
-    <main>
-      <p>*Se debe presentar 1 (un) formulario por cada proyecto solicitado.</p>
-      <p>
-        La institución deberá tener vigente su inscripción al SIPAF al momento
-        de la presentación del proyecto
-      </p>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impulsa | Formulario de Presentación de Proyecto</title>
+  <!-- Enlace a la hoja de estilos -->
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+
+<body>
+  <header>
+    <img src="./assets/impulsa.png" alt="Logo de Impulsa">
+    <h1>Formulario de Presentación de Proyecto</h1>
+    <!-- <p>Ministerio de Trabajo, Empleo y Seguridad Social</p> -->
+  </header>
+
+  <main>
+    <p>*Se debe presentar 1 (un) formulario por cada proyecto solicitado.</p>
+    <p>
+      La institución deberá tener vigente su inscripción al SIPAF al momento
+      de la presentación del proyecto
+    </p>
+
+
+    <form id="myForm" action="">
 
       <section>
         <h2>1. INSTITUCIÓN(ES) QUE PRESENTA(N) LA PROPUESTA:</h2>
 
         <div class="form-group">
           <label>INSTITUCIÓN:</label>
-          <input type="text" />
+          <input type="text" id="inst_institucion" />
         </div>
 
         <div class="form-group">
           <label>CUIT:</label>
-          <input type="text" />
+          <input type="text" id="inst_cuit" />
         </div>
 
         <div class="form-group">
           <label>DOMICILIO:</label>
-          <input type="text" />
+          <input type="text" id="inst_domicilio" />
         </div>
 
         <div class="form-group">
           <label>LOCALIDAD:</label>
-          <input type="text" />
+          <input type="text" id="inst_localidad" />
         </div>
 
         <div class="form-group">
           <label>CP:</label>
-          <input type="text" />
+          <input type="text" id="inst_cp" />
         </div>
 
         <div class="form-group">
           <label>TELÉFONO:</label>
-          <input type="text" />
+          <input type="text" id="inst_telefono" />
         </div>
 
         <div class="form-group">
           <label>MAIL INSTITUCIONAL:</label>
-          <input type="text" />
+          <input type="text" id="inst_mail" />
         </div>
+
       </section>
 
       <section>
@@ -68,39 +75,40 @@
 
         <div class="form-group">
           <label>NOMBRE COMPLETO:</label>
-          <input type="text" />
+          <input type="text" id="coord_nombre" />
         </div>
 
         <div class="form-group">
           <label>DNI:</label>
-          <input type="text" />
+          <input type="text" id="coord_dni" />
         </div>
 
         <div class="form-group">
           <label>N° DE REGISTRO:</label>
-          <input type="text" />
+          <input type="text" id="coord_registro" />
         </div>
 
         <div class="form-group">
           <label>TELÉFONO:</label>
-          <input type="text" />
+          <input type="text" id="coord_telefono" />
         </div>
 
         <div class="form-group">
           <label>MAIL:</label>
-          <input type="text" />
+          <input type="text" id="coord_mail" />
         </div>
 
         <div class="form-group">
           <label>HORARIO:</label>
-          <input type="text" />
+          <input type="text" id="coord_horario" />
         </div>
 
-        <div class="form-group form-group-column">
-          <label
-            >Descripción de su función en la Institución que presenta:</label
-          >
-          <input type="text" />
+        <div class="form-group">
+          <label>Descripción de su función en la Institución que presenta:</label>
+        </div>
+
+        <div class="form-group">
+          <input type="text" id="coord_descripcion" />
         </div>
       </section>
 
@@ -110,13 +118,19 @@
           provincia?
         </h2>
       </section>
-    </main>
 
-    <footer>
-      <p>Santa Fe Provincia</p>
-    </footer>
+    </form>
+    <div class="form-group">
+    <button class="print-button no-print" onclick="window.print()">IMPRIMIR FORMULARIO</button>
+  </div>
+  </main>
 
-    <!-- Enlace a los scripts JavaScript -->
-    <script src="./js/script.js"></script>
-  </body>
+  <footer>
+    <img src="./assets/footer.png" alt="Provincia de Santa Fe">
+  </footer>
+
+  <!-- Enlace a los scripts JavaScript -->
+  <script src="./js/script.js"></script>
+</body>
+
 </html>
