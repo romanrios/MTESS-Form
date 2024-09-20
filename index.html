@@ -8,6 +8,8 @@
   <title>Impulsa | Formulario de Presentación de Proyecto</title>
   <!-- Enlace a la hoja de estilos -->
   <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="shortcut icon" href="./assets/icon.png" />
+
 </head>
 
 <body>
@@ -32,7 +34,7 @@
 
         <div class="form-group">
           <label>INSTITUCIÓN:</label>
-          <input type="text" id="inst_institucion" />
+          <input type="text" id="inst_institucion" class="input" />
         </div>
 
         <div class="form-group">
@@ -118,40 +120,180 @@
         </h2>
 
         <div class="form-group">
-          <label>
+          <label class="label_checkbox">
             <input type="radio" name="programas_empleo" value="si" />
             Sí
           </label>
         </div>
 
         <div class="form-group">
-          <label>
+          <label class="label_checkbox">
             <input type="radio" name="programas_empleo" value="no" />
             No
           </label>
         </div>
 
-        <!-- <div class="form-group">
-          <h2>¿Cuáles?</h2>
-        </div>
         <div class="form-group">
-          <label>
+          <p>¿Cuáles?</p>
+        </div>
+
+        <div class="form-group">
+          <label class="label_checkbox">
             <input type="checkbox" name="programas[]" value="Redes / Santa Fe Capacita" />
             Redes / Santa Fe Capacita
           </label>
-          <label>
+        </div>
+
+        <div class="form-group">
+          <label class="label_checkbox">
             <input type="checkbox" name="programas[]" value="Nexo Oportunidad / Prácticas Laborales" />
             Nexo Oportunidad / Prácticas Laborales
           </label>
-          <label>
+        </div>
+
+        <div class="form-group">
+          <label class="label_checkbox">
             <input type="checkbox" name="programas[]" value="Mi Primer Empleo" />
             Mi Primer Empleo
           </label>
-          <label>
+        </div>
+
+        <div class="form-group">
+          <label class="label_checkbox">
             <input type="checkbox" name="programas[]" value="Nueva Oportunidad / Santa Fe Más" />
             Nueva Oportunidad / Santa Fe Más
           </label>
-        </div> -->
+        </div>
+      </section>
+
+      <section>
+        <h2>4. Describir brevemente qué actividades realizan en la institución y qué se aportará para el desarrollo de
+          la
+          propuesta (Ejemplo: Instalaciones, Maquinarias). Acompañar fotos de las instalaciones:</h2>
+        <div class="form-group">
+          <textarea rows="3" name="" id=""></textarea>
+        </div>
+      </section>
+
+
+      <!-- PAGINA 2 -->
+      <section>
+        <h2 class="title">FUNDAMENTACIÓN DEL PROYECTO</h2>
+        <div class="form-group">
+          <h2>1. Denominación del proyecto:</h2>
+        </div>
+
+        <div class="form-group">
+          <input type="text" id="coord_descripcion" />
+        </div>
+      </section>
+
+      <section>
+        <h2>2.1. Necesidad de implementación de la propuesta / vinculación con necesidades productivas locales y
+          regionales:</h2>
+        <div class="form-group">
+          <textarea rows="6" name="" id=""></textarea>
+        </div>
+      </section>
+
+      <section>
+        <div class="form-group">
+          <h2>2.2. Cantidad de habitantes que tiene la localidad:</h2>
+        </div>
+
+        <div class="form-group">
+          <input type="text" id="coord_descripcion" />
+        </div>
+      </section>
+
+      <section>
+        <h2>3. Empresas demandantes de mano de obra relacionada a la capacitación:</h2>
+        <p>*COMPLETAR: NOMBRE DE LA EMPRESA/COMERCIO - ACTIVIDAD - CONTACTO - MAIL - TELÉFONO - DIRECCIÓN</p>
+        <div class="form-group">
+          <textarea rows="6" name="" id=""></textarea>
+        </div>
+      </section>
+
+      <div class="form-group">
+        <h2>¿A qué población está orientada la propuesta?</h2>
+      </div>
+
+      <div class="form-group">
+        <label class="label_checkbox">
+          <input type="checkbox" name="programas[]" value="Redes / Santa Fe Capacita" />
+          Población desocupada en general
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label class="label_checkbox">
+          <input type="checkbox" name="programas[]" value="Nexo Oportunidad / Prácticas Laborales" />
+          Población ocupada con necesidad de recalificación
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label class="label_checkbox">
+          <input type="checkbox" name="programas[]" value="Mi Primer Empleo" />
+          Personas con discapacidad
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label class="label_checkbox">
+          <input type="checkbox" name="programas[]" value="Nueva Oportunidad / Santa Fe Más" />
+          Población penitenciaria / pospenitenciaria
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label class="label_checkbox">
+          <input type="checkbox" name="programas[]" value="Nueva Oportunidad / Santa Fe Más" />
+          Colectivo LGBT+
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label class="label_checkbox">
+          <input type="checkbox" name="programas[]" value="Nueva Oportunidad / Santa Fe Más" />
+          Pueblos originarios
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label class="label_checkbox">
+          <input type="checkbox" name="programas[]" value="Nueva Oportunidad / Santa Fe Más" />
+          Otras poblaciones:
+        </label>
+        <input type="text" />
+      </div>
+
+
+
+      <div class="form-group">
+        <h2>5. Link de Inscripción. (solo para proyectos A, B).</h2>
+      </div>
+      <div class="form-group">
+        <p>La inscripción a los cursos debe hacerse on line, a fin de agilizar el trámite en el caso de que sea
+          aprobado por la Comisión Evaluadora, le solicitamos nos envíe un link por cada propuesta donde los interesados
+          podrán inscribirse.
+          Para la creación del formulario de inscripción, le sugerimos utilice un google forms (forms.google.com) a tal
+          efecto.
+          Desde este Ministerio haremos publicaciones para promocionar el dictado del curso, por lo que nos es
+          imprescindible contar con dicha información.
+          Si el curso ha sido presentado teniendo en cuenta una población específica y por lo tanto la inscripción no se
+          encontrará abierta a la comunidad, le solicitamos nos lo informe con una explicación que justifique tal
+          situación.          
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label>Gmail para formulario:</label>
+        <input type="text" id="inst_cp" />
+      </div>
+
+      </section>
+
 
     </form>
     <div class="form-group">

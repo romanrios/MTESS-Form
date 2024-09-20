@@ -43,14 +43,20 @@ main {
   line-height: 3;
 }
 
+p {
+  line-height: normal;
+}
+
 h1 {
-  font-size: 15pt;
+  font-size: 13pt;
   font-weight: bold;
 }
 
 h2 {
   font-weight: bold;
   font-size: 11pt;
+  line-height: normal;
+  margin: 28px 0 12px 0;
 }
 
 .form-group {
@@ -58,6 +64,7 @@ h2 {
   width: 100%;
   align-items: center;
   gap: 8px;
+  min-height: 30px;
 }
 
 input {
@@ -65,8 +72,29 @@ input {
   font-weight: 500;
   flex: 1;
   height: 24px;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #aaaaaa9c;
 }
 
+label {
+  white-space: pre;
+}
 
+.label_checkbox {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
+textarea {
+  width: 100%;
+  resize: none;
+  border: 1px solid #aaa;
+  padding: 8px;
+  line-height: normal;
+}
+
+.title{
+  font-size: large;
+  margin-top: 60px;
+}
