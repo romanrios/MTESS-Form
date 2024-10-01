@@ -109,3 +109,7 @@ textarea {
   font-size: large;
   margin-top: 60px;
 }
+
+fieldset{
+  min-width: 0;
+}
