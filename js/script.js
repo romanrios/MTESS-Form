@@ -1,3 +1,7 @@
+import { db } from './firebaseConfig.js'; // Importa db desde firebaseConfig.js
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js"; // Importar funciones de Firestore
+import './autoResizeTextarea.js';
+
 const fields = ["inst_institucion",
     "inst_cuit",
     "inst_domicilio",
@@ -62,3 +66,38 @@ window.onload = loadFormData;
 
 // Guardar los datos del formulario cuando el usuario cambie algún campo
 document.getElementById("myForm").addEventListener("input", saveFormData);
+
+
+
+
+
+// FIREBASE FORM DATA SEND
+
+// Función para enviar datos a Firestore
+async function enviarDatosFormulario(data) {
+    try {
+        const docRef = await addDoc(collection(db, "nombre_de_tu_colección"), data);
+        console.log("Documento escrito con ID: ", docRef.id);
+    } catch (e) {
+        console.error("Error añadiendo documento: ", e);
+    }
+}
+
+// Manejar el evento de envío del formulario
+document.getElementById('myForm').addEventListener('submit', async function (event) {
+    event.preventDefault(); // Evita el envío tradicional
+
+    const formData = {};
+    fields.forEach(field => {
+        formData[field] = document.getElementById(field).value;
+    });
+
+    // Enviar datos a Firestore
+    await enviarDatosFormulario(formData);
+
+    // Mostrar mensaje de éxito
+    document.getElementById('mensaje').textContent = "Datos enviados exitosamente!";
+
+    // Reiniciar el formulario
+    this.reset();
+});
