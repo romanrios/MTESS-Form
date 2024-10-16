@@ -1,89 +1,534 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="es">
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/10.14.1/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/10.14.1/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/10.14.1/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/10.14.1/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/10.14.1/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/10.14.1/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/10.14.1/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/10.14.1/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/10.14.1/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/10.14.1/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impulsa | Formulario de Presentación de Proyecto</title>
+  <!-- Enlace a la hoja de estilos -->
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="shortcut icon" href="./assets/icon.png" />
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+</head>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+<body>
+  <header>
+    <img src="./assets/impulsa_blanco.svg" alt="Logo de Impulsa">
+    <br><br>
+    <h1>Formulario de Presentación de Proyecto</h1>
+  </header>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+  <main>
+    <button class="print-button no-print" id="logoutButton" style="display: none;">Cerrar Sesión</button>
+
+    <!-- LOGIN FORM -->
+    <form id="loginForm">
+      <h2>INICIAR SESIÓN</h2>
+      <input type="email" id="email" placeholder="usuario@gmail.com" requiredgmail.com>
+      <input type="password" id="password" placeholder="123456" required>
+      <button class="print-button" id="loginButton">Iniciar Sesión</button>
+      <p id="loginError"></p>
+
+      <!-- Añadir un enlace para cambiar al formulario de registro -->
+      <p>¿No tienes una cuenta? <a id="showRegisterForm">Regístrate aquí</a></p>
+
+    </form>
+
+    <!-- REGISTER FORM -->
+    <form id="registerForm" style="display: none;">
+      <h2>REGISTRAR NUEVO USUARIO</h2>
+      <input type="email" id="registerEmail" placeholder="Correo electrónico" />
+      <input type="password" id="registerPassword" placeholder="Contraseña" />
+      <button class="print-button" id="registerButton">Registrarse</button>
+      
+      <p id="registerError"></p>
+
+      <p>¿Ya tienes cuenta? <a id="showLoginForm">Ingresa aquí</a></p>
+    </form>
+
+
+
+
+    <!-- MAIN FORM -->
+    <form id="myForm" action="">
+
+      <p>*Se debe presentar 1 (un) formulario por cada proyecto solicitado.</p>
+      <p>
+        La institución deberá tener vigente su inscripción al SIPAF al momento
+        de la presentación del proyecto
+      </p>
+
+      <!-- PAGE 1 -->
+      <section>
+        <h2>1. INSTITUCIÓN(ES) QUE PRESENTA(N) LA PROPUESTA:</h2>
+
+        <fieldset>
+          <div class="form-group">
+            <label>INSTITUCIÓN:</label>
+            <input type="text" id="inst_institucion" class="input" />
+          </div>
+
+          <div class="form-group">
+            <label>CUIT:</label>
+            <input type="text" id="inst_cuit" />
+          </div>
+
+          <div class="form-group">
+            <label>DOMICILIO:</label>
+            <input type="text" id="inst_domicilio" />
+          </div>
+
+          <div class="form-group">
+            <label>LOCALIDAD:</label>
+            <input type="text" id="inst_localidad" />
+          </div>
+
+          <div class="form-group">
+            <label>CP:</label>
+            <input type="text" id="inst_cp" />
+          </div>
+
+          <div class="form-group">
+            <label>TELÉFONO:</label>
+            <input type="text" id="inst_telefono" />
+          </div>
+
+          <div class="form-group">
+            <label>MAIL INSTITUCIONAL:</label>
+            <input type="text" id="inst_mail" />
+          </div>
+
+        </fieldset>
+
+        <fieldset>
+          <h2>
+            2. COORDINADOR/A DEL PROYECTO (Nexo con la Dirección de Capacitación y
+            Formación Laboral):
+          </h2>
+
+          <div class="form-group">
+            <label>NOMBRE COMPLETO:</label>
+            <input type="text" id="coord_nombre" />
+          </div>
+
+          <div class="form-group">
+            <label>DNI:</label>
+            <input type="text" id="coord_dni" />
+          </div>
+
+          <div class="form-group">
+            <label>N° DE REGISTRO:</label>
+            <input type="text" id="coord_registro" />
+          </div>
+
+          <div class="form-group">
+            <label>TELÉFONO:</label>
+            <input type="text" id="coord_telefono" />
+          </div>
+
+          <div class="form-group">
+            <label>MAIL:</label>
+            <input type="text" id="coord_mail" />
+          </div>
+
+          <div class="form-group">
+            <label>HORARIO:</label>
+            <input type="text" id="coord_horario" />
+          </div>
+
+          <div class="form-group">
+            <label>Descripción de su función en la Institución que presenta:</label>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="coord_descripcion" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <h2>
+            3. ¿Ha trabajado con programas de empleo y capacitación de la provincia?
+          </h2>
+
+          <div class="form-group">
+            <label class="label_checkbox">
+              <input type="radio" name="programas_empleo" value="si" />
+              Sí
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="label_checkbox">
+              <input type="radio" name="programas_empleo" value="no" />
+              No
+            </label>
+          </div>
+
+          <div class="form-group">
+            <p>¿Cuáles?</p>
+          </div>
+
+          <div class="form-group">
+            <label class="label_checkbox">
+              <input type="checkbox" name="programas[]" value="Redes / Santa Fe Capacita" />
+              Redes / Santa Fe Capacita
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="label_checkbox">
+              <input type="checkbox" name="programas[]" value="Nexo Oportunidad / Prácticas Laborales" />
+              Nexo Oportunidad / Prácticas Laborales
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="label_checkbox">
+              <input type="checkbox" name="programas[]" value="Mi Primer Empleo" />
+              Mi Primer Empleo
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="label_checkbox">
+              <input type="checkbox" name="programas[]" value="Nueva Oportunidad / Santa Fe Más" />
+              Nueva Oportunidad / Santa Fe Más
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <h2>4. Describir brevemente qué actividades realizan en la institución y qué se aportará para el desarrollo de
+            la propuesta (Ejemplo: Instalaciones, Maquinarias). Acompañar fotos de las instalaciones:</h2>
+          <div class="form-group">
+            <textarea rows="3" name="" id=""></textarea>
+          </div>
+        </fieldset>
+      </section>
+
+      <!-- PAGE 2 -->
+      <section>
+        <fieldset>
+          <h2 class="title">FUNDAMENTACIÓN DEL PROYECTO</h2>
+          <div class="form-group">
+            <h2>1. Denominación del proyecto:</h2>
+          </div>
+
+          <div class="form-group">
+            <input type="text" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <h2>2.1. Necesidad de implementación de la propuesta / vinculación con necesidades productivas locales y
+            regionales:</h2>
+          <div class="form-group">
+            <textarea rows="6" name="" id=""></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <div class="form-group">
+            <h2>2.2. Cantidad de habitantes que tiene la localidad:</h2>
+          </div>
+
+          <div class="form-group">
+            <input type="text" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <h2>3. Empresas demandantes de mano de obra relacionada a la capacitación:</h2>
+          <p>*COMPLETAR: NOMBRE DE LA EMPRESA/COMERCIO - ACTIVIDAD - CONTACTO - MAIL - TELÉFONO - DIRECCIÓN</p>
+          <div class="form-group">
+            <textarea rows="6" name="" id=""></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <div class="form-group">
+            <h2>¿A qué población está orientada la propuesta?</h2>
+          </div>
+
+          <div class="form-group">
+            <label class="label_checkbox">
+              <input type="checkbox" name="programas[]" value="Redes / Santa Fe Capacita" />
+              Población desocupada en general
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="label_checkbox">
+              <input type="checkbox" name="programas[]" value="Nexo Oportunidad / Prácticas Laborales" />
+              Población ocupada con necesidad de recalificación
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="label_checkbox">
+              <input type="checkbox" name="programas[]" value="Mi Primer Empleo" />
+              Personas con discapacidad
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="label_checkbox">
+              <input type="checkbox" name="programas[]" value="Nueva Oportunidad / Santa Fe Más" />
+              Población penitenciaria / pospenitenciaria
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="label_checkbox">
+              <input type="checkbox" name="programas[]" value="Nueva Oportunidad / Santa Fe Más" />
+              Colectivo LGBT+
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="label_checkbox">
+              <input type="checkbox" name="programas[]" value="Nueva Oportunidad / Santa Fe Más" />
+              Pueblos originarios
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="label_checkbox">
+              <input type="checkbox" name="programas[]" value="Nueva Oportunidad / Santa Fe Más" />
+              Otras poblaciones:
+            </label>
+            <input type="text" />
+          </div>
+        </fieldset>
+
+
+        <fieldset>
+          <div class="form-group">
+            <h2>5. Link de Inscripción. (solo para proyectos A, B).</h2>
+          </div>
+          <div class="form-group">
+            <p>La inscripción a los cursos debe hacerse on line, a fin de agilizar el trámite en el caso de que sea
+              aprobado por la Comisión Evaluadora, le solicitamos nos envíe un link por cada propuesta donde los
+              interesados
+              podrán inscribirse.
+              Para la creación del formulario de inscripción, le sugerimos utilice un google forms (forms.google.com) a
+              tal
+              efecto.
+              Desde este Ministerio haremos publicaciones para promocionar el dictado del curso, por lo que nos es
+              imprescindible contar con dicha información.
+              Si el curso ha sido presentado teniendo en cuenta una población específica y por lo tanto la inscripción
+              no
+              se
+              encontrará abierta a la comunidad, le solicitamos nos lo informe con una explicación que justifique tal
+              situación.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label>Gmail para formulario:</label>
+            <input type="text" id="inst_cp" />
+          </div>
+        </fieldset>
+
+      </section>
+
+      <!-- PAGE 3 -->
+      <section>
+
+        <h2 class="title">PROYECTOS DE DESARROLLO FORMATIVO / COMPETENCIAS LABORALES</h2>
+        <h2>TIPO A Y TIPO B</h2>
+        <h2>Datos del Proyecto de Capacitación Laboral</h2>
+
+        <fieldset>
+          <h2>1. Requisitos de ingreso de los beneficiarios según proyecto (describirlos). (Ej. Edad, formación):</h2>
+          <div class="form-group">
+            <textarea rows="3" name="" id=""></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <h2>2. Perfil de egreso. Describa qué va a saber hacer la persona que finalice esta formación:
+          </h2>
+          <div class="form-group">
+            <textarea rows="5" name="" id=""></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <div class="form-group">
+            <h2>3. Unidades / módulos de dictado:</h2>
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder='(ir a pestaña "Diseño Curricular")' />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <h2>4. Características de dictado (Sólo para cursos presenciales / bimodales) - (Recordar que si se trata de
+            un espacio ajeno a la institución debe presentar nota de cesión firmada)
+          </h2>
+          <h2>Teoría</h2>
+          <div class="form-group">
+            <label>Carga horaria estimada teoría:</label>
+            <input type="text" id="" class="input" />
+          </div>
+          <div class="form-group">
+            <label>Nombre del lugar de dictado:</label>
+            <input type="text" id="" class="input" />
+          </div>
+          <div class="form-group">
+            <label>Dirección/Localidad:</label>
+            <input type="text" id="" class="input" />
+          </div>
+          <h2>Práctica</h2>
+          <div class="form-group">
+            <label>Carga horaria estimada práctica:</label>
+            <input type="text" id="" class="input" />
+          </div>
+          <div class="form-group">
+            <label>Nombre del lugar de dictado:</label>
+            <input type="text" id="" class="input" />
+          </div>
+          <div class="form-group">
+            <label>Dirección/Localidad:</label>
+            <input type="text" id="" class="input" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <h2>5. Modalidad de dictado (Sólo para cursos virtuales y/o bimodales)
+          </h2>
+          <p>Describir brevemente el encuadre de dictado (Plataforma. Sincrónico / Asincrónico. Videos)
+          </p>
+          <div class="form-group">
+            <textarea rows="4" name="" id=""></textarea>
+          </div>
+          <div class="form-group">
+            <label>Carga horaria estimada:</label>
+            <input type="text" id="" class="input" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <h2>6. Días y horarios de dictado:</h2>
+          <div class="form-group">
+            <textarea rows="3" name="" id=""></textarea>
+          </div>
+          <div class="form-group">
+            <label>Cantidad de Vacantes:</label>
+            <input type="text" id="" class="input" />
+          </div>
+          <div class="form-group">
+            <label>Carga Horaria Total:</label>
+            <input type="text" id="" class="input" />
+          </div>
+        </fieldset>
+
+      </section>
+
+      <!-- PAGE 4 -->
+      <section>
+        <h2>7. Equipo pedagógico</h2>
+        <p>Equipo pedagógico, roles posibles: Docente, Tutor (sólo para propuestas virtuales), Acompañante (sólo para
+          grupos priorizados), Intérprete en lenguaje de señas.</p>
+
+        <fieldset>
+
+          <div class="form-group">
+            <label>Rol:</label>
+            <input type="text" id="" class="input" />
+          </div>
+
+          <div class="form-group">
+            <label>N° de Registro:</label>
+            <input type="text" id="" class="input" />
+          </div>
+
+          <div class="form-group">
+            <label>Apellido y Nombre:</label>
+            <input type="text" id="" class="input" />
+          </div>
+
+          <div class="form-group">
+            <label>DNI:</label>
+            <input type="text" id="" class="input" />
+          </div>
+
+          <div class="form-group">
+            <label>Teléfono:</label>
+            <input type="text" id="" class="input" />
+          </div>
+
+          <div class="form-group">
+            <label>Dirección:</label>
+            <input type="text" id="" class="input" />
+          </div>
+
+          <div class="form-group">
+            <label>Mail:</label>
+            <input type="text" id="" class="input" />
+          </div>
+
+          <div class="form-group">
+            <label>Título/Certificación:</label>
+            <input type="text" id="" class="input" />
+          </div>
+
+          <fieldset>
+            <label>Observaciones:</label>
+            <div class="form-group">
+              <textarea rows="3" name="" id=""></textarea>
+            </div>
+          </fieldset>
+
+          <div class="form-group">
+            <label>Carga horaria:</label>
+            <input type="text" id="" class="input" />
+          </div>
+
+          <div class="form-group">
+            <label>Costo por hora:</label>
+            <input type="text" id="" class="input" />
+          </div>
+
+
+        </fieldset>
+
+      </section>
+
+      <!-- PAGE 5 -->
+      <section>
+        <h2>Unidades / Módulos de dictado</h2>
+        <textarea rows="25" name="" id=""></textarea>
+      </section>
+
+      <div class="form-group">
+        <button class="print-button no-print" type="submit">Guardar Datos</button>
+      </div>
+
+      <div class="form-group">
+        <p id="mensaje"></p>
+      </div>
+
+      <!-- Print Button -->
+      <div class="form-group">
+        <button class="print-button no-print" onclick="window.print()">Imprimir Formulario</button>
+      </div>
+
+      <!-- Form End -->
+    </form>
+
+
+
+  </main>
+
+  <footer>
+    <img src="./assets/sf_blanco.svg" alt="Provincia de Santa Fe">
+  </footer>
+
+  <!-- Enlace a los scripts JavaScript -->
+  <script type="module" src="./js/script.js"></script>
+</body>
+
 </html>
