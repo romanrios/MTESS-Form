@@ -1,0 +1,11 @@
+:root {
+    --yellow: #ffcb02;
+    --orange: #ff7402;
+    --pink: #ff6d7e;
+    --red: #e42153;
+    --blue: #3c3ae5;
+    --grey: #494963;
+    --grey50: rgba(73, 73, 99, 0.5);
+    --grey20: rgba(73, 73, 99, 0.2);
+    --grey2: #4a4a49;
+  }

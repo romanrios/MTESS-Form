@@ -2,17 +2,7 @@
 @import "reset.css";
 @import "print.css";
 @import "button.css";
-
-
-:root {
-  --yellow: #ffcb02;
-  --orange: #ff7402;
-  --pink: #ff6d7e;
-  --red: #e42153;
-  --blue: #3c3ae5;
-  --grey: #494963;
-  --grey2: #4a4a49;
-}
+@import "variables.css";
 
 body {
   background-color: #49496317;
@@ -33,11 +23,11 @@ footer {
   color: var(--grey);
 }
 
-header{
+header {
   background-image: url(https://www.santafe.gob.ar/ms/impulsa/wp-content/uploads/sites/67/2024/03/SF-Provincia_IMPULSA_slide_01.jpg);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover; 
+  background-size: cover;
 }
 
 
@@ -50,6 +40,7 @@ main {
   background-color: #fff;
   padding: 20px;
   line-height: 3;
+  min-height: 90vh;
 }
 
 p {
@@ -68,6 +59,8 @@ h2 {
   line-height: normal;
   margin: 28px 0 12px 0;
 }
+
+
 
 .form-group {
   display: flex;
@@ -105,11 +98,53 @@ textarea {
   line-height: normal;
 }
 
-.title{
+.title {
   font-size: large;
   margin-top: 60px;
 }
 
-fieldset{
+fieldset {
   min-width: 0;
+}
+
+
+
+#myForm {
+  display: none;
+}
+
+#loginForm {
+  display: flex;
+  flex-direction: column;
+}
+
+#mensaje {
+  margin: auto;
+  text-align: center;
+}
+
+#registerForm {
+  display: flex;
+  flex-direction: column;
+}
+
+#showLoginForm,
+#showRegisterForm{
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#showLoginForm:hover,
+#showRegisterForm:hover{
+text-decoration: underline;
+}
+
+#loginForm p,
+#registerForm p{
+  margin:0 auto 10px auto;
+}
+
+#loginError,
+#registerError{
+  color: var(--red);
 }

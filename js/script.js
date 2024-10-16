@@ -1,103 +1,84 @@
-import { db } from './firebaseConfig.js'; // Importa db desde firebaseConfig.js
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js"; // Importar funciones de Firestore
+import { auth, db } from './firebaseConfig.js'; // Importa db desde firebaseConfig.js
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+import { collection, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js"; // Importar funciones de Firestore
 import './autoResizeTextarea.js';
+import './login.js';
+import './localStorage.js';
+import { fields } from './fields.js';
 
-const fields = ["inst_institucion",
-    "inst_cuit",
-    "inst_domicilio",
-    "inst_localidad",
-    "inst_cp",
-    "inst_telefono",
-    "inst_mail",
-    "coord_nombre",
-    "coord_dni",
-    "coord_registro",
-    "coord_telefono",
-    "coord_mail",
-    "coord_horario",
-    "coord_descripcion"
-];
-
-
-// Función para guardar los datos del formulario en localStorage como un objeto
-function saveFormData() {
-    console.log("saveFormData")
-
-
-    const formData = {};
-
-    fields.forEach(field => {
-        formData[field] = document.getElementById(field).value;
-    });
-
-    // Convertir el objeto a JSON y almacenarlo en localStorage
-    localStorage.setItem("formData", JSON.stringify(formData));
-}
-
-
-
-
-function loadFormData() {
-
-    const savedData = localStorage.getItem("formData");
-
-    if (savedData) {
-        const formData = JSON.parse(savedData);  // Convertir de JSON a objeto        
-
-        fields.forEach(field => {
-            const element = document.getElementById(field);
-            // if (element) {
-                element.value = formData[field] || "";
-            // }
-        });
-    }
-}
-
-
-
-
-// Función auxiliar para loadFormData
-function setFormData(fieldName, formData) {
-    document.getElementById(fieldName).value = formData[fieldName] || "";
-}
-
-// Cargar los datos guardados cuando se cargue la página
-window.onload = loadFormData;
-
-// Guardar los datos del formulario cuando el usuario cambie algún campo
-document.getElementById("myForm").addEventListener("input", saveFormData);
-
-
-
-
+// Constantes para elementos del DOM
+const loginForm = document.getElementById("loginForm");
+const myForm = document.getElementById("myForm");
+const mensaje = document.getElementById("mensaje");
 
 // FIREBASE FORM DATA SEND
 
-// Función para enviar datos a Firestore
-async function enviarDatosFormulario(data) {
-    try {
-        const docRef = await addDoc(collection(db, "nombre_de_tu_colección"), data);
-        console.log("Documento escrito con ID: ", docRef.id);
-    } catch (e) {
-        console.error("Error añadiendo documento: ", e);
+let userId;
+
+// Verificar si el usuario está autenticado
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        userId = user.uid;
+        console.log("Usuario autenticado:", userId);
+        // Verificar si el formulario ya fue completado y cargarlo
+        await cargarFormulario(userId);
+    } else {
+        console.log("Usuario no autenticado");
+        loginForm.style.display = "flex";
+        myForm.style.display = "none";
+    }
+});
+
+// Función para cargar el formulario desde Firestore
+async function cargarFormulario(userId) {
+    const docRef = doc(db, "formularios", userId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        const datosFormulario = docSnap.data();
+        console.log("Datos del formulario recuperados:", datosFormulario);
+
+        for (const field in datosFormulario) {
+            const element = document.getElementById(field);
+            if (element) {
+                element.value = datosFormulario[field] || ""; // Autocompletar con el valor del formulario si existe
+            }
+        }
+
+        mensaje.innerText = 'Puedes modificar el formulario si es necesario y volver a enviarlo.';
+    } else {
+        console.log("No hay formulario previo para este usuario.");
+        mensaje.innerText = 'Completa el formulario a continuación.';
     }
 }
 
-// Manejar el evento de envío del formulario
-document.getElementById('myForm').addEventListener('submit', async function (event) {
-    event.preventDefault(); // Evita el envío tradicional
+// Manejo del evento de envío del formulario
+myForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
     const formData = {};
     fields.forEach(field => {
         formData[field] = document.getElementById(field).value;
     });
 
-    // Enviar datos a Firestore
-    await enviarDatosFormulario(formData);
+    try {
+        // Verificar si el documento ya existe antes de actualizarlo
+        const docRef = doc(db, "formularios", userId);
+        const docSnap = await getDoc(docRef);
 
-    // Mostrar mensaje de éxito
-    document.getElementById('mensaje').textContent = "Datos enviados exitosamente!";
-
-    // Reiniciar el formulario
-    this.reset();
+        if (docSnap.exists()) {
+            // Actualizar los datos existentes
+            await updateDoc(docRef, formData);
+            mensaje.innerText = 'Formulario actualizado correctamente';
+            console.log("Formulario actualizado");
+        } else {
+            // Guardar un nuevo documento
+            await setDoc(docRef, formData);
+            mensaje.innerText = 'Formulario enviado correctamente';
+            console.log("Formulario guardado por primera vez");
+        }
+    } catch (error) {
+        console.error("Error al enviar el formulario:", error);
+        mensaje.innerText = 'Error al enviar el formulario';
+    }
 });

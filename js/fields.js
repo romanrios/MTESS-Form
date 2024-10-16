@@ -1,0 +1,15 @@
+export const fields = ["inst_institucion",
+    "inst_cuit",
+    "inst_domicilio",
+    "inst_localidad",
+    "inst_cp",
+    "inst_telefono",
+    "inst_mail",
+    "coord_nombre",
+    "coord_dni",
+    "coord_registro",
+    "coord_telefono",
+    "coord_mail",
+    "coord_horario",
+    "coord_descripcion"
+];

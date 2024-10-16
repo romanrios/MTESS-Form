@@ -1,0 +1,46 @@
+@import './variables.css';
+
+.form-group_formList {
+    max-width: 100%;
+    overflow-x: auto;
+    margin-bottom: 50px;
+}
+
+#formList {
+    margin: auto;
+
+
+}
+
+.form-list-title {
+    text-align: center;
+    margin: auto;
+}
+
+th {
+    background-color: var(--grey20);
+    font-weight: bold;
+}
+
+td,
+th {
+    padding: 0px 15px;
+    border: 1px solid var(--grey);
+    line-height: 36px;
+    white-space: nowrap;
+    /* Impide que el texto se divida en múltiples líneas */
+    word-break: keep-all;
+    /* Mantiene las palabras completas, evitando el corte en los guiones */
+}
+
+i {
+    text-align: center;
+    width: 100%;
+    font-size: 17px;
+    color: var(--grey);
+    transition: all 0.1s;
+}
+
+i:hover {
+    color: var(--red);
+}
