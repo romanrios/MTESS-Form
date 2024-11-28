@@ -2,6 +2,9 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/fireba
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 // Inicializar Firebase con las variables de entorno
 const firebaseConfig = {
   apiKey: process.env.APIKEY,
