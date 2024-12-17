@@ -1,0 +1,61 @@
+.Form h2 {
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin: 28px 0 12px 0;
+}
+
+.Form section{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.Form fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: none;
+    min-width: 0;
+}
+
+.Form .form-group {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 8px;
+    min-height: 30px;
+}
+
+.Form input {
+    font-size: 1rem;
+    font-weight: 500;
+    flex: 1;
+    min-width: 0;
+    height: 24px;
+    border-bottom: 1px solid #aaaaaa9c;
+}
+
+.Form label {
+    white-space: pre;
+}
+
+.Form .label_checkbox {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.Form textarea {
+    width: 100%;
+    resize: none;
+    border: 1px solid #aaa;
+    padding: 8px;
+    line-height: normal;
+}
+
+.Form .title {
+    font-size: large;
+    margin-top: 60px;
+}
+

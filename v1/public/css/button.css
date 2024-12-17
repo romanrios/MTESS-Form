@@ -1,4 +1,4 @@
-.print-button {
+.button {
     margin: 50px auto;
     padding: 7px 40px;
     font-size: 16px;
@@ -14,17 +14,17 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.print-button:hover {
+.button:hover {
     background-color: #0056b3;
     transform: scale(1.05);
 }
 
-.print-button:active {
+.button:active {
     background-color: #004494;
     transform: scale(1);
 }
 
-.print-button:focus {
+.button:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
 }

@@ -1,0 +1,18 @@
+.Header {
+    background-image: url('./assets/header_impulsa.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    padding: 50px 0;
+    text-align: center;
+    line-height: 2;
+    color: white;
+}
+
+.Header h1 {
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: normal;
+    margin: 28px 0 12px 0;
+}
