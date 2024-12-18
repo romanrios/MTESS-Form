@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import '../css/LoginForm.css';
 
 export const LoginForm = () => {
@@ -11,6 +13,6 @@ export const LoginForm = () => {
         <button class="button" id="loginButton">Iniciar Sesión</button>
 
         <p id="loginError"></p>
-        <p>¿No tienes una cuenta? <a id="showRegisterForm">Regístrate aquí</a></p>
+        <p>¿No tienes una cuenta? <Link to="/register">Regístrate aquí</Link></p>
     </form>
 }

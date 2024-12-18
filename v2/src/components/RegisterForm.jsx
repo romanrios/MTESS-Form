@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import '../css/RegisterForm.css';
 
 export const RegisterForm = () => {
@@ -12,6 +13,6 @@ export const RegisterForm = () => {
 
         <p id="registerError"></p>
 
-        <p>¿Ya tienes cuenta? <a id="showLoginForm">Ingresa aquí</a></p>
+        <p>¿Ya tienes cuenta? <Link to='/'>Ingresa aquí</Link></p>
     </form>
 }
