@@ -1,5 +1,5 @@
 import '../css/Form.css'
-import { TextInput } from './TextInput'
+import { TextInput } from '../components/TextInput'
 
 export const Form = () => {
 
