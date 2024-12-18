@@ -4,5 +4,18 @@ import { useAuth } from '../contexts/AuthContext';
 
 export const ProtectedRoute = ({ element }) => {
     const { currentUser } = useAuth();
-    return currentUser ? element : <Navigate to="/" />;
+
+    if (!currentUser) {
+        return <Navigate to="/" />;
+    }
+
+    if (!currentUser.emailVerified) {
+        return <Navigate to="/" />;
+    }
+
+    // if (!currentUser.emailVerified) {
+    //     return <Navigate to="/verify-email" />;
+    // }
+
+    return element;
 };

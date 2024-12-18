@@ -10,15 +10,33 @@ export const Navigation = () => {
     const handleLogout = async () => {
         await signOut(auth);
         navigate('/');
-    };  
+    };
 
     return (
         <nav>
             <ul>
                 {currentUser ? (
-                    <>
-                        <li><button onClick={handleLogout}>Cerrar sesión</button></li>
-                    </>
+                    currentUser.emailVerified ? (
+                        <>
+                            <li><button onClick={handleLogout}>Cerrar sesión</button></li>
+                        </>
+                    ) : (
+                        <>
+                            <li>
+                                <NavLink
+                                    // to="/verify-email"
+                                    to="/"
+                                    style={({ isActive }) => ({
+                                        textDecoration: isActive ? 'underline' : 'none',
+                                        textUnderlineOffset: '8px'
+                                    })}
+                                >
+                                    Verificar correo electrónico
+                                </NavLink>
+                            </li>
+                            <li><button onClick={handleLogout}>Cerrar sesión</button></li>
+                        </>
+                    )
                 ) : (
                     <>
                         <li>
