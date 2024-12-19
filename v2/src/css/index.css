@@ -17,3 +17,14 @@ button,
 a {
   cursor: pointer;
 }
+
+/* src/css/alerts.css */
+.swal2-center {
+  
+  text-align: center;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  
+}
