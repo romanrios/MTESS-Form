@@ -59,3 +59,7 @@
     margin-top: 60px;
 }
 
+.Form .button {
+    display: flex;
+    justify-content: center;
+}

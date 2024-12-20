@@ -1,27 +1,27 @@
 /* Estilos específicos para impresión */
 @media print {
 
-    body {
-      margin: 0;
-      padding: 0;
-    }
-  
-    @page {
-      size: A4 portrait;
-      /* Define tamaño de página A4 */
-      margin: 1cm;
-      /* Márgenes para la impresión */
-    }
-  
-    .no-print,
-    header,
-    footer {
-      display: none !important;
-      /* Ocultar elementos no deseados en impresión */
-    }
-  
-    .page-break {
-      page-break-before: always;
-      /* Insertar un salto de página antes de este elemento */
-    }
+  body {
+    margin: 0;
+    padding: 0;
   }
+
+  @page {
+    size: A4 portrait;
+    /* Define tamaño de página A4 */
+    margin: 1cm !important;
+    /* Márgenes para la impresión */
+  }
+
+  .no-print,
+  header,
+  footer {
+    display: none !important;
+    /* Ocultar elementos no deseados en impresión */
+  }
+
+  .page-break {
+    page-break-before: always;
+    /* Insertar un salto de página antes de este elemento */
+  }
+}

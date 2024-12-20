@@ -4,6 +4,7 @@ import { db } from '../firebase-config';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
 import { useEffect, useState } from 'react';
+import { showSuccessAlert } from '../utils/alerts';
 
 const handleSubmit = async (event, currentUser) => {
     event.preventDefault();
@@ -31,9 +32,9 @@ const handleSubmit = async (event, currentUser) => {
     try {
         const docRef = doc(db, 'formularios', currentUser.uid); // Usar el UID del usuario como ID del documento
         await setDoc(docRef, data, { merge: true }); // Actualizar datos existentes o crearlos si no existen
-        console.log('Datos actualizados exitosamente.');
+        showSuccessAlert('Datos actualizados exitosamente.');
     } catch (e) {
-        console.error('Error actualizando los datos: ', e);
+        showErrorAlert(e.message);
     }
 };
 
@@ -169,7 +170,9 @@ export const Form = () => {
                 </fieldset>
             </section>
 
-            <button className='button' type="submit">Enviar</button>
+            <button className='button no-print' type="submit">Enviar y Actualizar Datos</button>
+
+            <button className="button no-print" type="button" onClick={() => window.print()}>Imprimir Formulario</button>
 
         </form>
     )
