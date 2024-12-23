@@ -18,3 +18,15 @@
     height: 24px;
     border-bottom: 1px solid #aaaaaa9c;
 }
+
+.password-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.show-password-button{
+    color: var(--grey);
+    font-size: 18px;
+    padding-left: 16px;
+}

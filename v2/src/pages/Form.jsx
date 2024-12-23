@@ -4,43 +4,12 @@ import { db } from '../firebase-config';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../contexts/AuthContext';
 import { useEffect, useState } from 'react';
-import { showSuccessAlert } from '../utils/alerts';
-
-const handleSubmit = async (event, currentUser) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.target);
-    const data = {
-        userId: currentUser.uid,
-        inst_institucion: formData.get('inst_institucion'),
-        inst_cuit: formData.get('inst_cuit'),
-        inst_domicilio: formData.get('inst_domicilio'),
-        inst_localidad: formData.get('inst_localidad'),
-        inst_cp: formData.get('inst_cp'),
-        inst_telefono: formData.get('inst_telefono'),
-        inst_mail: formData.get('inst_mail'),
-        coord_nombre: formData.get('coord_nombre'),
-        coord_dni: formData.get('coord_dni'),
-        coord_registro: formData.get('coord_registro'),
-        coord_telefono: formData.get('coord_telefono'),
-        coord_mail: formData.get('coord_mail'),
-        coord_horario: formData.get('coord_horario'),
-    };
-
-    console.log(data);
-
-    try {
-        const docRef = doc(db, 'formularios', currentUser.uid); // Usar el UID del usuario como ID del documento
-        await setDoc(docRef, data, { merge: true }); // Actualizar datos existentes o crearlos si no existen
-        showSuccessAlert('Datos actualizados exitosamente.');
-    } catch (e) {
-        showErrorAlert(e.message);
-    }
-};
+import { showSuccessAlert, showErrorAlert } from '../utils/alerts';
 
 export const Form = () => {
     const { currentUser } = useAuth();
     const [initialData, setInitialData] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (currentUser) {
@@ -63,12 +32,47 @@ export const Form = () => {
         }
     }, [currentUser]);
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setIsLoading(true);
+
+        const formData = new FormData(event.target);
+        const data = {
+            userId: currentUser.uid,
+            inst_institucion: formData.get('inst_institucion'),
+            inst_cuit: formData.get('inst_cuit'),
+            inst_domicilio: formData.get('inst_domicilio'),
+            inst_localidad: formData.get('inst_localidad'),
+            inst_cp: formData.get('inst_cp'),
+            inst_telefono: formData.get('inst_telefono'),
+            inst_mail: formData.get('inst_mail'),
+            coord_nombre: formData.get('coord_nombre'),
+            coord_dni: formData.get('coord_dni'),
+            coord_registro: formData.get('coord_registro'),
+            coord_telefono: formData.get('coord_telefono'),
+            coord_mail: formData.get('coord_mail'),
+            coord_horario: formData.get('coord_horario'),
+        };
+
+        console.log(data);
+
+        try {
+            const docRef = doc(db, 'formularios', currentUser.uid); // Usar el UID del usuario como ID del documento
+            await setDoc(docRef, data, { merge: true }); // Actualizar datos existentes o crearlos si no existen
+            showSuccessAlert('Datos actualizados exitosamente.');
+        } catch (e) {
+            showErrorAlert(e.message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     if (!initialData) {
         return <p>Cargando datos del formulario...</p>;
     }
 
     return (
-        <form className="Form" id="myForm" action="" onSubmit={(e) => handleSubmit(e, currentUser)}>
+        <form className="Form" id="myForm" action="" onSubmit={handleSubmit}>
             <p>*Se debe presentar 1 (un) formulario por cada proyecto solicitado.</p>
             <p>
                 La institución deberá tener vigente su inscripción al SIPAF al momento
@@ -170,7 +174,9 @@ export const Form = () => {
                 </fieldset>
             </section>
 
-            <button className='button no-print' type="submit">Enviar y Actualizar Datos</button>
+            <button className='button no-print' type="submit" disabled={isLoading}>
+                {isLoading ? 'Enviando...' : 'Enviar y Actualizar Datos'}
+            </button>
 
             <button className="button no-print" type="button" onClick={() => window.print()}>Imprimir Formulario</button>
 
