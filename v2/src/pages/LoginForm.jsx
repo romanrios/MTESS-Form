@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../utils/auth';
+import { loginUser, loginWithGoogle } from '../utils/auth';
 import { showErrorAlert, showSuccessAlert, showVerificationAlert } from '../utils/alerts';
 import '../css/LoginForm.css';
 import { FaRegEyeSlash } from "react-icons/fa6";
@@ -39,39 +39,56 @@ export const LoginForm = (props) => {
     }
   };
 
+  const handleGoogleLogin = async () => {
+    try {
+      const user = await loginWithGoogle();
+      showSuccessAlert(`Bienvenido ${user.displayName || user.email}`);
+      navigate(props.targetRoute);
+    } catch (error) {
+      showErrorAlert('Error al iniciar sesión con Google: ' + error.message);
+    }
+  };
+
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
   return (
     <form id="loginForm" className='LoginForm' onSubmit={handleLogin}>
-      <h2>{props.title}</h2>
 
-      <input
-        type="email"
-        id="email"
-        placeholder="Correo electrónico"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        autoComplete='on'
-      />
-      <div className="password-container">
+      <div className='input-container'>
+      <h2>{props.title}</h2>
         <input
-          type={showPassword ? "text" : "password"}
-          id="password"
-          placeholder="Contraseña"
+          type="email"
+          id="email"
+          placeholder="Correo electrónico"
           required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          autoComplete='new-password'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          autoComplete='on'
         />
-        <button type="button" className="show-password-button" onClick={toggleShowPassword} >
-          {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
-        </button>
+        <div className="password-container">
+          <input
+            type={showPassword ? "text" : "password"}
+            id="password"
+            placeholder="Contraseña"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            autoComplete='new-password'
+          />
+          <button type="button" className="show-password-button" onClick={toggleShowPassword} >
+            {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+          </button>
+        </div>
       </div>
       <button className="button" id="loginButton" type="submit" disabled={isLoading}>
         {isLoading ? 'Iniciando...' : 'Iniciar Sesión'}
+      </button>
+
+      <button type="button" onClick={handleGoogleLogin} className="button button_google" >
+        <img src="./assets/google_logo.svg" alt="Google logo" />
+        Iniciar sesión con Google
       </button>
 
 

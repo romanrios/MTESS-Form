@@ -42,44 +42,44 @@ export const RegisterForm = () => {
 
     return (
         <form className='RegisterForm' id="registerForm" onSubmit={handleRegister}>
-            <h2>REGISTRAR NUEVO USUARIO</h2>
-
-            <input
-                type="email"
-                id="registerEmail"
-                placeholder="Correo electrónico"
-                autoComplete='off'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            <div className="password-container">
+            <div className='input-container'>
+                <h2>REGISTRAR NUEVO USUARIO</h2>
                 <input
-                    type={showPassword ? "text" : "password"}
-
-                    id="registerPassword"
-                    placeholder='Contraseña'
-                    autoComplete='new-password'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    type="email"
+                    id="registerEmail"
+                    placeholder="Correo electrónico"
+                    autoComplete='off'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
-                <button type="button" className="show-password-button" onClick={toggleShowPassword} >
-                    {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
-                </button>
-            </div>
-            <div className="password-container">
-                <input
-                    type={showPassword ? "text" : "password"}
-                    id="confirmPassword"
-                    placeholder='Confirmar Contraseña'
-                    autoComplete='new-password'
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-                <button type="button" className="show-password-button" onClick={toggleShowPassword} >
-                    {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
-                </button>
-            </div>
+                <div className="password-container">
+                    <input
+                        type={showPassword ? "text" : "password"}
 
+                        id="registerPassword"
+                        placeholder='Contraseña'
+                        autoComplete='new-password'
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <button type="button" className="show-password-button" onClick={toggleShowPassword} >
+                        {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                    </button>
+                </div>
+                <div className="password-container">
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        id="confirmPassword"
+                        placeholder='Confirmar Contraseña'
+                        autoComplete='new-password'
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                    <button type="button" className="show-password-button" onClick={toggleShowPassword} >
+                        {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                    </button>
+                </div>
+            </div>
             <button className="button" id="registerButton" type="submit" disabled={isLoading}>
                 {isLoading ? 'Registrando...' : 'Registrarse'}
             </button>
