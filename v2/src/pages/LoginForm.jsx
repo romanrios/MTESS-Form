@@ -18,7 +18,7 @@ export const LoginForm = (props) => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    if (props.checkAdmin && email !== ADMIN_EMAIL) {
+    if (props.checkAdmin && email !== process.env.ADMIN_EMAIL) {
       showErrorAlert('Correo no autorizado para acceso de administrador');
       return;
     }
@@ -57,7 +57,7 @@ export const LoginForm = (props) => {
     <form id="loginForm" className='LoginForm' onSubmit={handleLogin}>
 
       <div className='input-container'>
-      <h2>{props.title}</h2>
+        <h2>{props.title}</h2>
         <input
           type="email"
           id="email"
@@ -86,10 +86,11 @@ export const LoginForm = (props) => {
         {isLoading ? 'Iniciando...' : 'Iniciar Sesión'}
       </button>
 
-      <button type="button" onClick={handleGoogleLogin} className="button button_google" >
+      {!props.checkAdmin && <button type="button" onClick={handleGoogleLogin} className="button button_google" >
         <img src="./assets/google_logo.svg" alt="Google logo" />
         Iniciar sesión con Google
-      </button>
+      </button>}
+
 
 
     </form>

@@ -14,53 +14,41 @@ export const Navigation = () => {
         showSuccessAlert('Sesión cerrada');
     };
 
+    const navLinkStyle = ({ isActive }) => ({
+        textDecoration: isActive ? 'underline' : 'none',
+        textUnderlineOffset: '8px'
+    });
+
     return (
         <nav>
             <ul>
                 {currentUser ? (
-                    currentUser.emailVerified ? (
-                        <>
+                    <>
+                        {currentUser.emailVerified ? (
                             <li><button onClick={handleLogout}>Cerrar sesión</button></li>
-                        </>
-                    ) : (
-                        <>
+                        ) : (
                             <li>
-                                <NavLink
-                                    // to="/verify-email"
-                                    to="/"
-                                    style={({ isActive }) => ({
-                                        textDecoration: isActive ? 'underline' : 'none',
-                                        textUnderlineOffset: '8px'
-                                    })}
-                                >
+                                <NavLink to="/" style={navLinkStyle}>
                                     Verificar correo electrónico
                                 </NavLink>
                             </li>
-                            <li><button onClick={handleLogout}>Cerrar sesión</button></li>
-                        </>
-                    )
+                        )}
+                    </>
                 ) : (
                     <>
                         <li>
-                            <NavLink
-                                to="/"
-                                style={({ isActive }) => ({
-                                    textDecoration: isActive ? 'underline' : 'none',
-                                    textUnderlineOffset: '8px'
-                                })}
-                            >
+                            <NavLink to="/" style={navLinkStyle}>
                                 Iniciar sesión
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink
-                                to="/register"
-                                style={({ isActive }) => ({
-                                    textDecoration: isActive ? 'underline' : 'none',
-                                    textUnderlineOffset: '8px'
-                                })}
-                            >
+                            <NavLink to="/register" style={navLinkStyle}>
                                 Registrarse
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/admin" style={navLinkStyle}>
+                                Administrador
                             </NavLink>
                         </li>
                     </>

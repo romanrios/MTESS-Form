@@ -20,7 +20,7 @@ export const App = () => {
           <Route path="/admin" element={<LoginForm title="ACCESO DE ADMINISTRADOR" targetRoute='/admin/list' checkAdmin />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/form" element={<ProtectedRoute element={<Form />} />} />
-          <Route path="/admin/list" element={<List />} />
+          <Route path="/admin/list" element={<ProtectedRoute element={<List />} checkAdmin/>} />
         </Routes>
       </main>
       <Footer />
