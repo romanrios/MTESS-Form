@@ -26,6 +26,7 @@ export const List = () => {
                     const user = await auth.currentUser;
                     // Combine user data and form data
                     const createdAt = userData.createdAt ? new Date(userData.createdAt.seconds * 1000).toLocaleDateString() : 'N/A';
+                    console.log(userData.emailVerified)
                     usersData.push({
                         email: userData.email,
                         emailVerified: user.emailVerified,

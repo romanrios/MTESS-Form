@@ -1,10 +1,10 @@
-.Form h2 {
+/* .Form h2 {
     font-weight: bold;
     font-size: 0.9rem;
     margin: 28px 0 12px 0;
 }
 
-.Form section{
+.Form section {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -63,4 +63,59 @@
     display: flex;
     justify-content: center;
     margin: 50px auto;
+} */
+
+
+
+
+
+/* Estilos SurveyJS */
+
+body {
+    --main-color: #ff7402 !important;
+    --font-family: Inter, sans-serif !important;
+    --answer-background-color: #ff740217 !important;
+    --text-color: var(--grey) !important;
+    --primary: var(--orange) !important;
+
+
+    /* --main-color: #1ab394;
+    --add-button-color: #1948b3;
+    --remove-button-color: #ff1800;
+    --disable-color: #dbdbdb;
+    --progress-text-color: #9d9d9d;
+    --disabled-label-color: rgba(64, 64, 64, 0.5);
+    --slider-color: white;
+    --disabled-slider-color: #cfcfcf;
+    --error-color: #d52901;
+    --text-color: #404040;
+    --light-text-color: #fff;
+    --checkmark-color: #fff;
+    --progress-buttons-color: #8dd9ca;
+    --inputs-background-color: transparent;
+    --main-hover-color: #9f9f9f;
+    --body-container-background-color: #f4f4f4;
+    --text-border-color: #d4d4d4;
+    --disabled-text-color: rgba(64, 64, 64, 0.5);
+    --border-color: rgb(64, 64, 64, 0.5);
+    --header-background-color: #e7e7e7;
+    --answer-background-color: rgb(143 72 29 / 20%);
+    --error-background-color: rgba(213, 41, 1, 0.2);
+    --radio-checked-color: #404040;
+    --clean-button-color: #1948b3;
+    --body-background-color: #ffffff;
+    --foreground-light: #909090;
+    --font-family: Raleway; */
+
 }
+
+
+.sd-btn--action:hover {
+    background-color: var(--red) !important;
+}
+
+/* @media (max-width:570px){
+    main{
+        padding: 10px 0 10px 0;
+    }
+} */
