@@ -1,3 +1,33 @@
-.List{
-    background-color: aqua;
+.List {
+    display: flex;
+    flex-direction: column;
+
+
+    h2 {
+        font-weight: bold;
+        font-size: 0.9rem;
+        margin: 28px 0 12px 0;
+    }
+
+    .List_table_container {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        text-align: left;
+        font-weight: 600;
+        background-color: rgba(128, 128, 128, 0.164);
+    }
+
+    td,
+    th {
+        padding: 3px;
+        border: solid 1px grey;
+    }
 }

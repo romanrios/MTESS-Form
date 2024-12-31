@@ -1,5 +1,4 @@
 import Swal from 'sweetalert2';
-import { sendVerificationEmail } from './auth';
 
 export const showErrorAlert = (message) => {
     Swal.fire({
@@ -25,12 +24,14 @@ export const showInfoAlert = (message) => {
     });
 };
 
-export const showVerificationAlert = (user) => {
+export const showVerificationAlert = (user, sendVerificationEmail) => {
     Swal.fire({
         icon: 'info',
         title: 'Verificación necesaria',
         text: 'Debes verificar tu correo electrónico.',
-        footer: '<a href="#" id="send-verification-link">Enviar correo de verificación nuevamente</a>',
+        // footer: '<a href="#" id="send-verification-link">Enviar correo de verificación nuevamente</a>',
+        footer: `<button id="send-verification-link" class="swal2-confirm">Enviar correo de verificación nuevamente</button>`,
+
         didRender: () => {
             const sendVerificationLink = document.querySelector('#send-verification-link');
             sendVerificationLink.addEventListener('click', async (event) => {
@@ -39,15 +40,12 @@ export const showVerificationAlert = (user) => {
                     await sendVerificationEmail(user);
                     showSuccessAlert('Se ha enviado un nuevo correo de verificación.');
                 } catch (error) {
-                    showErrorAlert(error.message);
+                    showErrorAlert(error.code);
                 }
             });
         }
     });
 };
-
-
-
 
 const errorMessages = {
     'auth/email-already-in-use': 'Este correo ya está registrado. Por favor, usa otro correo o inicia sesión.',
@@ -72,9 +70,14 @@ const errorMessages = {
     'auth/missing-email': 'El correo electrónico es obligatorio. Proporciónalo e inténtalo de nuevo.',
     'auth/missing-password': 'La contraseña es obligatoria. Proporciónala e inténtalo de nuevo.',
     'auth/quota-exceeded': 'Se ha excedido la cuota. Inténtalo de nuevo más tarde.',
+    
+    'permission-denied': 'No tienes permiso para realizar esta operación. Contacta al soporte para más información.',
 };
 
 const getFriendlyErrorMessage = (errorCode) => {
+    if (typeof errorCode !== 'string') {
+        return 'Ocurrió un error. Por favor, intenta de nuevo.';
+    }
     const matchedKey = Object.keys(errorMessages).find(key => errorCode.includes(key));
     return errorMessages[matchedKey] || `Ocurrió un error. Por favor, intenta de nuevo. (${errorCode})`;
 };

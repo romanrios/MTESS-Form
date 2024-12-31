@@ -1,13 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUser, loginWithGoogle } from '../utils/auth';
+import { useAuth } from '../contexts/AuthContext';
 import { showErrorAlert, showSuccessAlert, showVerificationAlert } from '../utils/alerts';
+import { FaRegEyeSlash, FaRegEye } from "react-icons/fa6";
 import '../css/LoginForm.css';
-import { FaRegEyeSlash } from "react-icons/fa6";
-import { FaRegEye } from "react-icons/fa6";
-
-// Only authorized mail
-const ADMIN_EMAIL = 'mtess.sf@gmail.com';
 
 export const LoginForm = (props) => {
   const [email, setEmail] = useState('');
@@ -15,6 +11,7 @@ export const LoginForm = (props) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { loginUser, loginWithGoogle, logout, sendVerificationEmail } = useAuth();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -25,12 +22,13 @@ export const LoginForm = (props) => {
     setIsLoading(true);
     try {
       const user = await loginUser(email, password);
-
+      
       if (user.emailVerified) {
         showSuccessAlert('Inicio de sesión exitoso');
         navigate(props.targetRoute);
       } else {
-        showVerificationAlert(user);
+        logout();
+        showVerificationAlert(user, sendVerificationEmail);
       }
     } catch (error) {
       showErrorAlert(error.message);

@@ -1,16 +1,14 @@
-import { signOut } from 'firebase/auth';
-import { auth } from '../firebase-config';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { showSuccessAlert } from '../utils/alerts';
 
 export const Navigation = () => {
-    const { currentUser } = useAuth();
+    const { currentUser, logout } = useAuth();
     const navigate = useNavigate();
 
     const handleLogout = async () => {
         navigate('/');
-        await signOut(auth);
+        await logout();
         showSuccessAlert('Sesión cerrada');
     };
 
@@ -24,15 +22,7 @@ export const Navigation = () => {
             <ul>
                 {currentUser ? (
                     <>
-                        {currentUser.emailVerified ? (
-                            <li><button onClick={handleLogout}>Cerrar sesión</button></li>
-                        ) : (
-                            <li>
-                                <NavLink to="/" style={navLinkStyle}>
-                                    Verificar correo electrónico
-                                </NavLink>
-                            </li>
-                        )}
+                        <li><button onClick={handleLogout}>Cerrar sesión</button></li>
                     </>
                 ) : (
                     <>

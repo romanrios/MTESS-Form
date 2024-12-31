@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { registerUser } from '../utils/auth';
-import { auth } from '../firebase-config';
+// import { registerUser } from '../utils/auth';
+import { useAuth } from '../contexts/AuthContext';
 import { showErrorAlert, showSuccessAlert } from '../utils/alerts';
-import '../css/RegisterForm.css';
-import { FaRegEyeSlash } from "react-icons/fa6";
-import { FaRegEye } from "react-icons/fa6";
+import { FaRegEyeSlash, FaRegEye } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
+import '../css/RegisterForm.css';
 
 export const RegisterForm = () => {
     const [email, setEmail] = useState('');
@@ -14,6 +13,7 @@ export const RegisterForm = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
+    const { logout, registerUser } = useAuth();
 
     const handleRegister = async (event) => {
         event.preventDefault();
@@ -26,8 +26,8 @@ export const RegisterForm = () => {
             const user = await registerUser(email, password);
             showSuccessAlert(`Para completar el registro debes confirmar el correo enviado a ${email}`);
 
-            // Cerrar la sesión después de registrar el usuario
-            await auth.signOut();
+            // signOut(auth) de firebase/auth realizado en AuthContext.jsx
+            await logout();
             navigate('/');
         } catch (error) {
             showErrorAlert(error.message);
@@ -55,7 +55,6 @@ export const RegisterForm = () => {
                 <div className="password-container">
                     <input
                         type={showPassword ? "text" : "password"}
-
                         id="registerPassword"
                         placeholder='Contraseña'
                         autoComplete='new-password'
@@ -83,7 +82,6 @@ export const RegisterForm = () => {
             <button className="button" id="registerButton" type="submit" disabled={isLoading}>
                 {isLoading ? 'Registrando...' : 'Registrarse'}
             </button>
-
         </form>
     );
 };

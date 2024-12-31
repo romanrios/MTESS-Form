@@ -21,11 +21,11 @@ export const Form = () => {
                     if (docSnap.exists()) {
                         setInitialData(docSnap.data());
                     } else {
-                        console.log('No se encontraron datos previos.');
+                        // console.log('No se encontraron datos previos.');
                         setInitialData({});
                     }
                 } catch (e) {
-                    console.error('Error al obtener los datos:', e);
+                    showErrorAlert(e);
                 }
             };
             fetchData();
@@ -54,7 +54,6 @@ export const Form = () => {
             coord_horario: formData.get('coord_horario'),
         };
 
-        console.log(data);
 
         try {
             const docRef = doc(db, 'formularios', currentUser.uid); // Usar el UID del usuario como ID del documento
