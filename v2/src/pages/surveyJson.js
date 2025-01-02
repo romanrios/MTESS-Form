@@ -1,6 +1,9 @@
 export const surveyJson = {
     title: "Formulario de Presentación de Proyecto",
     description: "Complete la información requerida en cada sección.",
+    showProgressBar:"top",
+    showCompletedPAge: "false",
+    completedHtml: ` <div style="text-align: center;"> <h3>Formulario enviado y actualizado</h3> <p style="margin: 40px auto 80px auto;">Puedes modificarlo o imprimirlo</p>`,
     pages: [
         {
             name: "institucion",
