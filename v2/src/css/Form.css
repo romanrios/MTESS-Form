@@ -65,21 +65,20 @@
     margin: 50px auto;
 } */
 
-
-
-
-
 /* Estilos SurveyJS */
 
+/* .sd-input {
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3) !important;
+} */
+
 body {
-    --main-color: #ff7402 !important;
-    --font-family: Inter, sans-serif !important;
-    --answer-background-color: #ff740217 !important;
-    --text-color: var(--grey) !important;
-    --primary: var(--orange) !important;
+  --main-color: #ff7402 !important;
+  --font-family: Inter, sans-serif !important;
+  --answer-background-color: #ff740217 !important;
+  --text-color: var(--grey) !important;
+  --primary: var(--orange) !important;
 
-
-    /* --main-color: #1ab394;
+  /* --main-color: #1ab394;
     --add-button-color: #1948b3;
     --remove-button-color: #ff1800;
     --disable-color: #dbdbdb;
@@ -106,12 +105,10 @@ body {
     --body-background-color: #ffffff;
     --foreground-light: #909090;
     --font-family: Raleway; */
-
 }
 
-
 .sd-btn--action:hover {
-    background-color: var(--red) !important;
+  background-color: var(--red) !important;
 }
 
 /* @media (max-width:570px){

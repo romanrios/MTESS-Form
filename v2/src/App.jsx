@@ -1,26 +1,51 @@
-import './css/App.css';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
-import { Form } from './pages/Form';
-import { LoginForm } from './pages/LoginForm';
-import { RegisterForm } from './pages/RegisterForm';
-import { Routes, Route } from 'react-router-dom';
-import { ProtectedRoute } from './components/ProtectedRoute';
-import { Navigation } from './components/Navigation';
-import { List } from './pages/List';
+import "./css/App.css";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
+import { Form } from "./pages/Form";
+import { LoginForm } from "./pages/LoginForm";
+import { RegisterForm } from "./pages/RegisterForm";
+import { Routes, Route } from "react-router-dom";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { Navigation } from "./components/Navigation";
+import { List } from "./pages/List";
 
 export const App = () => {
   return (
-    <div className='App'>
+    <div className="App">
       <Header />
       <main>
         <Navigation />
         <Routes>
-          <Route path="/" element={<LoginForm title="INICIAR SESIÓN" targetRoute='/form' checkAdmin={false} />} />
-          <Route path="/admin" element={<LoginForm title="ACCESO DE ADMINISTRADOR" targetRoute='/admin/list' checkAdmin />} />
+          <Route
+            path="/"
+            element={
+              <LoginForm
+                title="INICIAR SESIÓN"
+                targetRoute="/form"
+                checkAdmin={false}
+              />
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <LoginForm
+                title="ACCESO DE ADMINISTRADOR"
+                targetRoute="/admin/list"
+                checkAdmin
+              />
+            }
+          />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/form" element={<ProtectedRoute element={<Form />} />} />
-          <Route path="/admin/list" element={<ProtectedRoute element={<List />} checkAdmin/>} />
+          <Route
+            path="/form/:userId"
+            element={<ProtectedRoute element={<Form />} checkAdmin />}
+          />
+          <Route
+            path="/admin/list"
+            element={<ProtectedRoute element={<List />} checkAdmin />}
+          />
         </Routes>
       </main>
       <Footer />

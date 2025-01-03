@@ -12,59 +12,60 @@ import { surveyJson } from "./surveyJson.js"; // Mi Form
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { LOGO_SF_BASE_64 } from "../utils/const.js";
-import { NavLink } from "react-router-dom";
+import { useParams } from 'react-router-dom'; // Import useParams
 
 export const Form = () => {
+  const { userId } = useParams(); // Get user ID from URL
   const { currentUser } = useAuth();
   const [initialData, setInitialData] = useState(null);
   const [surveyModel, setSurveyModel] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Fetch data from Firestore
   useEffect(() => {
-    // fetch de los datos en Firestore
-    if (currentUser) {
-      const fetchData = async () => {
-        try {
-          const docRef = doc(db, "formularios", currentUser.uid);
-          const docSnap = await getDoc(docRef);
-
-          // setInitialData
-          if (docSnap.exists()) {
-            setInitialData(docSnap.data());
-          } else {
-            setInitialData({});
-          }
-        } catch (e) {
-          showErrorAlert(e.message);
-        }
-      };
-      fetchData();
+    if (userId) {
+      fetchData(userId);
     }
-  }, [currentUser]);
+  }, [userId]);
 
+  const fetchData = async (userId) => {
+    try {
+      const docRef = doc(db, "formularios", userId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        setInitialData(docSnap.data());
+      } else {
+        setInitialData({});
+      }
+    } catch (e) {
+      showErrorAlert(e.message);
+    }
+  };
+
+  // Initialize survey model with initial data
   useEffect(() => {
     if (initialData) {
-      // Asigna valores predeterminados dinámicamente
-      surveyJson.pages.forEach((page) => {
-        page.elements.forEach((element) => {
-          if (initialData[element.name] !== undefined) {
-            element.defaultValue = initialData[element.name];
-          }
-        });
-      });
-
-      // Crea el modelo del formulario con los valores actualizados
-      const model = new Model(surveyJson);
-      model.locale = "es"; // Idioma
-      // model.applyTheme(DefaultLight); // Tema
-
-      setSurveyModel(model);
+      initializeSurveyModel();
     }
   }, [initialData]);
 
+  const initializeSurveyModel = () => {
+    surveyJson.pages.forEach((page) => {
+      page.elements.forEach((element) => {
+        if (initialData[element.name] !== undefined) {
+          element.defaultValue = initialData[element.name];
+        }
+      });
+    });
+
+    const model = new Model(surveyJson);
+    model.locale = "es"; // Set language
+    setSurveyModel(model);
+  };
+
   const handleSurveyComplete = async (survey) => {
     setIsLoading(true);
-
     try {
       const docRef = doc(db, "formularios", currentUser.uid);
       await setDoc(docRef, survey.data, { merge: true });
@@ -78,11 +79,8 @@ export const Form = () => {
 
   const generatePDF = () => {
     const doc = new jsPDF();
-
-    // Imagen en base64 - X, Y, W, H
     doc.addImage(LOGO_SF_BASE_64, "JPEG", 140, 7, 62.125, 10);
 
-    // Añadir título principal
     doc.autoTable({
       head: [["IMPULSA | Formulario de Presentación de Proyecto"]],
       body: [],
@@ -91,43 +89,17 @@ export const Form = () => {
       startY: 15,
     });
 
-    // Obtener los datos de la encuesta
     const surveyData = surveyModel.data;
     const surveyPages = surveyJson.pages;
+    let startY = 30;
 
-    let startY = 30; // Coordenada inicial para las tablas
-
-    // Generar una tabla para cada página con su título
     surveyPages.forEach((page) => {
-      // Título de la página
-      //   doc.autoTable({
-      //   head: [
-      //     [
-      //       {
-      //         content: page.title,
-      //         colSpan: 2,
-      //         styles: {
-      //           halign: "center",
-      //           fillColor: [200, 200, 200],
-      //           fontSize: 12,
-      //         },
-      //       },
-      //     ],
-      //   ],
-      //     body: [],
-      //     theme: "plain",
-      //     startY: startY,
-      //   });
-
-      // Generar filas para las preguntas de la página
       const pageBody = page.elements.map((element) => [
-        element.title || element.name, // Título o nombre de la pregunta
-        surveyData[element.name] || "", // Respuesta correspondiente
+        element.title || element.name,
+        surveyData[element.name] || "",
       ]);
 
-      // Añadir la tabla con los datos de la página
       doc.autoTable({
-        // head: [["Pregunta", "Respuesta"]],
         head: [
           [
             {
@@ -143,13 +115,11 @@ export const Form = () => {
           ],
         ],
         body: pageBody,
-        content: page.title,
-        colSpan: 2,
         theme: "grid",
-        startY: doc.previousAutoTable.finalY + 5, // Definir espacio entre tablas
+        startY: doc.previousAutoTable.finalY + 5,
         columnStyles: {
-          0: { cellWidth: 50 }, // Ajusta el ancho de la columna izquierda
-          1: { cellWidth: "auto" }, // Deja que la columna derecha se ajuste automáticamente
+          0: { cellWidth: 50 },
+          1: { cellWidth: "auto" },
         },
         styles: {
           fontSize: 10,
@@ -157,20 +127,20 @@ export const Form = () => {
         },
       });
 
-      // Actualizar la posición Y para la próxima tabla
       startY = doc.previousAutoTable.finalY + 10;
     });
 
-    // Agregar número de página a cada página del PDF
+    addPageNumbers(doc);
+    doc.save("survey_form.pdf");
+  };
+
+  const addPageNumbers = (doc) => {
     const totalPages = doc.getNumberOfPages();
     for (let i = 1; i <= totalPages; i++) {
-      doc.setPage(i); // Establecer la página actual
+      doc.setPage(i);
       doc.setFontSize(10);
-      doc.text(`Página ${i} de ${totalPages}`, 105, 290, { align: "center" }); // Posición centrada al pie de página
+      doc.text(`Página ${i} de ${totalPages}`, 105, 290, { align: "center" });
     }
-
-    // Guardar el PDF
-    doc.save("survey_form.pdf");
   };
 
   if (!surveyModel) {
@@ -181,7 +151,6 @@ export const Form = () => {
     <div className="Form">
       <Survey model={surveyModel} onComplete={handleSurveyComplete} />
       {isLoading && <p>Guardando datos...</p>}
-
       <button
         onClick={generatePDF}
         className="button"
