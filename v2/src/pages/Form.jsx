@@ -12,25 +12,28 @@ import { surveyJson } from "./surveyJson.js"; // Mi Form
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { LOGO_SF_BASE_64 } from "../utils/const.js";
-import { useParams } from 'react-router-dom'; // Import useParams
+import { useParams } from "react-router-dom";
 
 export const Form = () => {
-  const { userId } = useParams(); // Get user ID from URL
   const { currentUser } = useAuth();
+  const { userId } = useParams();
   const [initialData, setInitialData] = useState(null);
   const [surveyModel, setSurveyModel] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   // Fetch data from Firestore
   useEffect(() => {
-    if (userId) {
-      fetchData(userId);
+    if (currentUser) {
+      fetchData();
     }
-  }, [userId]);
+  }, [currentUser, userId]);
 
-  const fetchData = async (userId) => {
+  const fetchData = async () => {
     try {
-      const docRef = doc(db, "formularios", userId);
+      // usar params si es admin
+      const uid =
+        currentUser.email === "mtess.sf@gmail.com" ? userId : currentUser.uid;
+      const docRef = doc(db, "formularios", uid);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -67,7 +70,11 @@ export const Form = () => {
   const handleSurveyComplete = async (survey) => {
     setIsLoading(true);
     try {
-      const docRef = doc(db, "formularios", currentUser.uid);
+      // usar params si es admin
+      const uid =
+        currentUser.email === "mtess.sf@gmail.com" ? userId : currentUser.uid;
+
+      const docRef = doc(db, "formularios", uid);
       await setDoc(docRef, survey.data, { merge: true });
       showSuccessAlert("Datos enviados y almacenados exitosamente.");
     } catch (e) {

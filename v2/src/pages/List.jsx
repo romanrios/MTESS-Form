@@ -65,22 +65,30 @@ export const List = () => {
         <table>
           <thead>
             <tr>
+              <th>
+                Fecha de
+                <br />
+                Registro
+              </th>
               <th>Email</th>
-              <th>Email Verificado</th>
               <th>Coordinador</th>
               <th>Institución</th>
-              <th>Fecha de Registro</th>
+              <th>
+                Email
+                <br />
+                Verificado
+              </th>
               <th>Ver</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user, index) => (
               <tr key={index}>
+                <td>{user.createdAt}</td>
                 <td>{user.email}</td>
-                <td>{user.emailVerified ? "Sí" : "No"}</td>
                 <td>{user.coord_nombre}</td>
                 <td>{user.inst_institucion}</td>
-                <td>{user.createdAt}</td>
+                <td>{user.emailVerified ? "Sí" : "No"}</td>
                 <td className="List_td_ver">
                   <button onClick={() => handleShowForm(user.id)}>
                     <FaMagnifyingGlass />

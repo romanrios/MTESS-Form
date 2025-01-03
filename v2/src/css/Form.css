@@ -68,7 +68,8 @@
 /* Estilos SurveyJS */
 
 /* .sd-input {
-  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.3) !important;
+  border-bottom: solid 2px var(--orange) !important;
 } */
 
 body {
@@ -77,6 +78,7 @@ body {
   --answer-background-color: #ff740217 !important;
   --text-color: var(--grey) !important;
   --primary: var(--orange) !important;
+  --sjs-editorpanel-backcolor: rgb(238, 238, 238);
 
   /* --main-color: #1ab394;
     --add-button-color: #1948b3;
@@ -110,9 +112,3 @@ body {
 .sd-btn--action:hover {
   background-color: var(--red) !important;
 }
-
-/* @media (max-width:570px){
-    main{
-        padding: 10px 0 10px 0;
-    }
-} */

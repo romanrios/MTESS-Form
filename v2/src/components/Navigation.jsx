@@ -19,7 +19,7 @@ export const Navigation = () => {
   });
 
   return (
-    <nav>
+    <nav className="Navigation">
       <ul>
         {currentUser ? (
           <>
