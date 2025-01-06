@@ -86,10 +86,10 @@ export const Form = () => {
 
   const generatePDF = () => {
     const doc = new jsPDF();
-    doc.addImage(LOGO_SF_BASE_64, "JPEG", 140, 7, 62.125, 10);
+    doc.addImage(LOGO_SF_BASE_64, "JPEG", 133, 12, 62.125, 10);
 
     doc.autoTable({
-      head: [["IMPULSA | Formulario de Presentación de Proyecto"]],
+      head: [["Formulario de Presentación de Proyecto"]],
       body: [],
       theme: "plain",
       styles: { fontSize: 12, fontStyle: "bold" },
@@ -101,10 +101,27 @@ export const Form = () => {
     let startY = 30;
 
     surveyPages.forEach((page) => {
-      const pageBody = page.elements.map((element) => [
-        element.title || element.name,
-        surveyData[element.name] || "",
-      ]);
+      const pageBody = page.elements
+        .filter((element) => element.type !== "html") // Filtrar los elementos de tipo "html"
+        .map((element) => {
+          if (element.type === "paneldynamic") {
+            const panelData = surveyData[element.name] || []; // Array de paneles
+            const panelContent = panelData
+              .map((panel) =>
+                Object.values(panel)
+                  .map((value) => value || "Sin datos")
+                  .join("; ")
+              )
+              .join("\n\n"); // Separar los paneles con un doble salto de línea
+            return [element.title || element.name, panelContent || "Sin datos"];
+          }
+
+          // Para otros elementos, devolver título y valor
+          return [
+            element.title || element.name,
+            surveyData[element.name] || "",
+          ];
+        });
 
       doc.autoTable({
         head: [

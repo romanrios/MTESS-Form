@@ -112,3 +112,7 @@ body {
 .sd-btn--action:hover {
   background-color: var(--red) !important;
 }
+
+.Form hr {
+  margin: 40px 0;
+}
