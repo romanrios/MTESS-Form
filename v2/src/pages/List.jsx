@@ -2,14 +2,15 @@ import "../css/List.css";
 import { useEffect, useState } from "react";
 import { db } from "../firebase-config";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
 import { showErrorAlert } from "../utils/alerts.js";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { useAuth } from "../contexts/AuthContext"; // Importa el contexto de autenticación
 
 export const List = () => {
   const [users, setUsers] = useState([]); // State to store user data
   const [isLoading, setIsLoading] = useState(true); // State to manage loading status
+  const { currentUser } = useAuth(); // Usa el contexto para obtener el usuario actual
   const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
@@ -18,29 +19,38 @@ export const List = () => {
         // Fetch user documents from the 'users' collection
         const querySnapshot = await getDocs(collection(db, "users"));
         const usersData = [];
-        const auth = getAuth();
         for (const userDoc of querySnapshot.docs) {
           const userData = userDoc.data();
           // Fetch the corresponding form document for each user
           const formDocRef = doc(db, "formularios", userDoc.id);
           const formDoc = await getDoc(formDocRef);
           const formData = formDoc.exists() ? formDoc.data() : {};
-          // Get the user from Firebase Authentication
-          const user = await auth.currentUser;
           // Combine user data and form data
           const createdAt = userData.createdAt
-            ? new Date(userData.createdAt.seconds * 1000).toLocaleDateString()
-            : "N/A";
+            ? new Date(userData.createdAt.seconds * 1000)
+            : null; // Mantén la fecha como objeto Date
           usersData.push({
             id: userDoc.id, // Add user ID
             email: userData.email,
-            emailVerified: user.emailVerified,
+            emailVerified: currentUser?.emailVerified || false, // Usar currentUser del contexto
             coord_nombre: formData.coord_nombre || "N/A",
             inst_institucion: formData.inst_institucion || "N/A",
             createdAt: createdAt,
           });
         }
-        setUsers(usersData); // Update state with fetched data
+
+        // Ordenar usuarios por fecha de creación (más reciente a más antigua)
+        usersData.sort((a, b) => b.createdAt - a.createdAt); // Ordenar fechas como objetos Date
+
+        // Formatear las fechas para la tabla después de ordenar
+        const formattedUsersData = usersData.map((user) => ({
+          ...user,
+          createdAt: user.createdAt
+            ? user.createdAt.toLocaleDateString()
+            : "N/A",
+        }));
+
+        setUsers(formattedUsersData); // Update state with fetched and sorted data
       } catch (e) {
         showErrorAlert(e.code); // Log any errors
       } finally {
@@ -48,7 +58,7 @@ export const List = () => {
       }
     };
     fetchUsers(); // Call the fetch function
-  }, []); // Empty dependency array to run effect only once
+  }, [currentUser]); // Agregar currentUser como dependencia por si cambia
 
   const handleShowForm = (userId) => {
     navigate(`/form/${userId}`); // Navigate to the form page with the user ID

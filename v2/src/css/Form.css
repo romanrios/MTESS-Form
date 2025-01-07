@@ -116,3 +116,13 @@ body {
 .Form hr {
   margin: 40px 0;
 }
+
+.sd-body__navigation {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Form .loading_message {
+  text-align: center;
+  margin: 40px auto;
+}

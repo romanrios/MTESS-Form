@@ -2,13 +2,13 @@ export const surveyJson = {
   title: "Formulario de Presentación de Proyecto",
   description: "Complete la información requerida en cada sección.",
   showProgressBar: "top",
-  showCompletedPAge: "false",
-  completedHtml: ` <div style="text-align: center;"> <h3>Formulario enviado y actualizado</h3> <p style="margin: 40px auto 80px auto;">Puedes modificarlo o imprimirlo</p>`,
+  // showCompletedPage: "false",
+  completedHtml: ` <div style="text-align: center;"> <h3>Formulario completado</h3> <p style="margin: 40px auto 80px auto;">Ya puedes exportarlo como PDF para imprimirlo o vuelve a ingresar para editarlo.</p>`,
   showQuestionNumbers: "off",
   pages: [
     {
       name: "institucion",
-      title: "1. Institución(es) que presenta(n) la propuesta:",
+      title: "Institución(es) que presenta(n) la propuesta:",
       elements: [
         { type: "text", name: "inst_institucion", title: "Institución:" },
         { type: "text", name: "inst_cuit", title: "CUIT:" },
@@ -22,7 +22,7 @@ export const surveyJson = {
 
     {
       name: "coordinador",
-      title: "2. Coordinador/a del Proyecto",
+      title: "Coordinador/a del Proyecto",
       elements: [
         { type: "text", name: "coord_nombre", title: "Nombre Completo:" },
         { type: "text", name: "coord_dni", title: "DNI:" },
@@ -36,7 +36,7 @@ export const surveyJson = {
     {
       name: "programas",
       title:
-        "3. ¿Ha trabajado con programas de empleo y capacitación de la provincia?",
+        "¿Ha trabajado con programas de empleo y capacitación de la provincia?",
       elements: [
         {
           type: "radiogroup",
@@ -54,19 +54,21 @@ export const surveyJson = {
             "Mi Primer Empleo",
             "Nueva Oportunidad / Santa Fe Más",
           ],
+          visibleIf: "{programas_empleo} = 'Sí'",
+          clearIfInvisible: true, // revisar
         },
       ],
     },
 
     {
       name: "actividades",
-      title: "4. Descripción de actividades en la institución",
+      title: "Descripción de actividades en la institución",
       elements: [
         {
           type: "comment",
           name: "actividades_descripcion",
           title:
-            "Describa brevemente qué actividades realizan y qué se aportará para el desarrollo de la propuesta.",
+            "Describa brevemente qué actividades realizan y qué se aportará para el desarrollo de la propuesta. (Ejemplo: Instalaciones, Maquinarias.) Acompañar de las fotos de las instalaciones.",
         },
       ],
     },
@@ -78,46 +80,62 @@ export const surveyJson = {
         {
           type: "text",
           name: "fund_denominacion",
-          title: "1. Denominación del proyecto:",
+          title: "Denominación del proyecto:",
         },
         {
           type: "comment",
           name: "fund_necesidad",
           title:
-            "2.1. Necesidad de implementación de la propuesta / vinculación con necesidades productivas locales y regionales:",
+            "Necesidad de implementación de la propuesta / vinculación con necesidades productivas locales y regionales:",
         },
         {
           type: "text",
           name: "fund_habitantes",
-          title: "2.2. Cantidad de habitantes que tiene la localidad:",
+          title: "Cantidad de habitantes que tiene la localidad:",
         },
 
         {
           type: "paneldynamic",
           name: "fund_empresas",
           title:
-            "3. Empresas demandantes de mano de obra relacionada a la capacitación:",
+            "Empresas demandantes de mano de obra relacionada a la capacitación:",
           templateElements: [
             {
               type: "text",
-              name: "nombre_empresa",
-              title: "Nombre de la empresa/comercio",
+              name: "01_fund_empresas_nombre",
+              title: "Nombre de la empresa o comercio:",
             },
-            { type: "text", name: "actividad", title: "Actividad" },
-            { type: "text", name: "contacto", title: "Contacto" },
-            { type: "text", name: "mail", title: "Mail" },
-            { type: "text", name: "telefono", title: "Teléfono" },
-            { type: "text", name: "direccion", title: "Dirección" },
+            {
+              type: "text",
+              name: "02_fund_empresas_actividad",
+              title: "Actividad:",
+            },
+            {
+              type: "text",
+              name: "03_fund_empresas_contacto",
+              title: "Contacto:",
+            },
+            { type: "text", name: "04_fund_empresas_mail", title: "Email:" },
+            {
+              type: "text",
+              name: "05_fund_empresas_telefono",
+              title: "Teléfono:",
+            },
+            {
+              type: "text",
+              name: "06_fund_empresas_direccion",
+              title: "Dirección:",
+            },
           ],
-          panelCount: 1, // Número inicial de paneles
-          minPanelCount: 1, // Número mínimo de paneles
+          panelCount: 1,
+          minPanelCount: 1,
           panelAddText: "Agregar Empresa",
           panelRemoveText: "Eliminar Empresa",
         },
         {
           type: "checkbox",
           name: "fund_poblacion",
-          title: "4. ¿A qué población está orientada la propuesta?",
+          title: "¿A qué población está orientada la propuesta?",
           choices: [
             "Población desocupada en general",
             "Población ocupada con necesidad de recalificación",
@@ -133,6 +151,7 @@ export const surveyJson = {
           name: "fund_poblacion_otras",
           title: "Especifique otras poblaciones:",
           visibleIf: "{fund_poblacion} contains 'Otras poblaciones'",
+          clearIfInvisible: true, // revisar
         },
         {
           type: "html",
@@ -148,19 +167,24 @@ export const surveyJson = {
 
     {
       name: "proyectos_desarrollo",
-      title: "Proyectos de Desarrollo Formativo / Competencias Laborales",
+      title:
+        "Proyectos de Desarrollo Formativo / Competencias Laborales (Tipo A y B)",
       elements: [
+        {
+          type: "html",
+          html: "Datos del Proyecto de Capacitación Laboral",
+        },
         {
           type: "comment",
           name: "proyectos_requisitos",
           title:
-            "1. Requisitos de ingreso de los beneficiarios según proyecto (describirlos). (Ej. Edad, formación).:",
+            "Requisitos de ingreso de los beneficiarios según proyecto (describirlos). (Ej. Edad, formación).:",
         },
         {
           type: "comment",
           name: "proyectos_perfil",
           title:
-            "2. Perfil de egreso. Describa qué va a saber hacer la persona que finalice esta formación.",
+            "Perfil de egreso. Describa qué va a saber hacer la persona que finalice esta formación.",
         },
         {
           type: "text",
@@ -179,7 +203,7 @@ export const surveyJson = {
             {
               type: "text",
               name: "proyectos_caracteristicas_teoria_carga",
-              title: "Carga horaria estimada teoría",
+              title: "Carga horaria estimada teoría:",
             },
             {
               type: "text",
@@ -201,7 +225,7 @@ export const surveyJson = {
             {
               type: "text",
               name: "proyectos_caracteristicas_practica_carga",
-              title: "Carga horaria estimada práctica",
+              title: "Carga horaria estimada práctica:",
             },
             {
               type: "text",
@@ -214,6 +238,85 @@ export const surveyJson = {
               title: "Dirección / Localidad:",
             },
           ],
+        },
+        {
+          type: "comment",
+          name: "proyectos_modalidad",
+          title:
+            "Modalidad de dictado. (Sólo para cursos virtuales y/o bimodales) Describir brevemente el encuadre de dictado (Plataforma. Sincrónico / Asincrónico. Videos)",
+        },
+        {
+          type: "comment",
+          name: "proyectos_horarios",
+          title: "Días y horarios de dictado",
+        },
+        {
+          type: "text",
+          name: "proyectos_vacantes",
+          title: "Cantidad de Vacantes",
+        },
+        {
+          type: "text",
+          name: "proyectos_cargahoraria",
+          title: "Carga Horaria",
+        },
+        {
+          type: "paneldynamic",
+          name: "proyectos_equipo",
+          title: "Equipo pedagógico",
+          templateElements: [
+            { type: "text", name: "01_proyectos_equipo_rol", title: "Rol:" },
+            {
+              type: "text",
+              name: "02_proyectos_equipo_registro",
+              title: "N° de Registro:",
+            },
+            {
+              type: "text",
+              name: "03_proyectos_equipo_apellidonombre",
+              title: "Apellido y Nombre:",
+            },
+            { type: "text", name: "04_proyectos_equipo_dni", title: "DNI:" },
+            {
+              type: "text",
+              name: "05_proyectos_equipo_telefono",
+              title: "Teléfono:",
+            },
+            {
+              type: "text",
+              name: "06_proyectos_equipo_direccion",
+              title: "Dirección:",
+            },
+            {
+              type: "text",
+              name: "07_proyectos_equipo_email",
+              title: "Email:",
+            },
+            {
+              type: "text",
+              name: "08_proyectos_equipo_titulocertificacion",
+              title: "Título/Certificación:",
+            },
+            {
+              type: "text",
+              name: "09_proyectos_equipo_observaciones",
+              title: "Observaciones:",
+            },
+            {
+              type: "text",
+              name: "10_proyectos_equipo_cargahoraria",
+              title: "Carga horaria:",
+            },
+            {
+              type: "text",
+              name: "11_proyectos_equipo_costohora",
+              title: "Costo por hora:",
+            },
+          ],
+          panelCount: 1,
+          minPanelCount: 1,
+          panelAddText: "Agregar Integrante",
+          panelRemoveText: "Eliminar Integrante",
         },
       ],
     },

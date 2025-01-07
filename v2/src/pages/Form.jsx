@@ -56,7 +56,15 @@ export const Form = () => {
   const initializeSurveyModel = () => {
     surveyJson.pages.forEach((page) => {
       page.elements.forEach((element) => {
-        if (initialData[element.name] !== undefined) {
+        // Si es un panel, recorrer sus elementos hijos
+        if (element.type === "panel" && element.elements) {
+          element.elements.forEach((childElement) => {
+            if (initialData[childElement.name] !== undefined) {
+              childElement.defaultValue = initialData[childElement.name];
+            }
+          });
+        } else if (initialData[element.name] !== undefined) {
+          // Para elementos de nivel superior
           element.defaultValue = initialData[element.name];
         }
       });
@@ -106,20 +114,52 @@ export const Form = () => {
         .map((element) => {
           if (element.type === "paneldynamic") {
             const panelData = surveyData[element.name] || []; // Array de paneles
-            const panelContent = panelData
-              .map((panel) =>
-                Object.values(panel)
-                  .map((value) => value || "Sin datos")
-                  .join("; ")
-              )
-              .join("\n\n"); // Separar los paneles con un doble salto de línea
-            return [element.title || element.name, panelContent || "Sin datos"];
+
+            // Ordenar los paneles por el nombre de sus elementos (por su 'name')
+            const sortedPanelData = panelData
+              .map((panel) => {
+                // Convertimos el objeto del panel en un array de entradas [name, value]
+                const panelEntries = Object.entries(panel).map(
+                  ([key, value]) => {
+                    // Encontramos el título correspondiente al 'name' (key)
+                    const elementTitle = element.templateElements.find(
+                      (e) => e.name === key
+                    )?.title;
+                    return [key, elementTitle || key, value || "Sin datos"];
+                  }
+                );
+
+                // Ordenar las entradas por 'name' (clave)
+                panelEntries.sort((a, b) => a[0].localeCompare(b[0]));
+
+                // Unir el contenido del panel ordenado en un texto, con los valores separados por " / "
+                return panelEntries
+                  .map((entry) => `${entry[1]} ${entry[2]}`) // Generar formato "title: value"
+                  .join(" / "); // Separar los elementos por " / "
+              })
+              .join("\n\n"); // Separar los diferentes paneles con un salto de línea entre ellos
+
+            return [
+              element.title || "Sin título",
+              sortedPanelData || "Sin datos",
+            ];
           }
 
-          // Para otros elementos, devolver título y valor
+          if (element.type === "panel") {
+            // Para los paneles estáticos, procesamos los elementos dentro de cada panel
+            const panelContent = element.elements
+              .map((childElement) => {
+                const value = surveyData[childElement.name] || "Sin datos";
+                return `${childElement.title || childElement.name}: ${value}`;
+              })
+              .join(" / "); // Unir todos los elementos dentro del panel
+            return [element.title || "Sin título", panelContent];
+          }
+
+          // Para otros tipos de elementos, devolver título y valor
           return [
-            element.title || element.name,
-            surveyData[element.name] || "",
+            element.title || "Sin título",
+            surveyData[element.name] || "Sin datos",
           ];
         });
 
@@ -174,7 +214,7 @@ export const Form = () => {
   return (
     <div className="Form">
       <Survey model={surveyModel} onComplete={handleSurveyComplete} />
-      {isLoading && <p>Guardando datos...</p>}
+      {isLoading && <p className="loading_message">Guardando datos...</p>}
       <button
         onClick={generatePDF}
         className="button"
