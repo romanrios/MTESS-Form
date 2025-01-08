@@ -27,7 +27,9 @@ export const Navigation = () => {
               </li>
             )}
             <li>
-              <button onClick={handleLogout}>Cerrar sesión</button>
+              <button className="nav-link" onClick={handleLogout}>
+                Cerrar sesión
+              </button>
             </li>
           </>
         ) : (
