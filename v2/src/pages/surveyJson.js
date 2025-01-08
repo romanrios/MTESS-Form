@@ -263,7 +263,7 @@ export const surveyJson = {
         {
           type: "text",
           name: "proyectos_cargahoraria",
-          title: "Carga Horaria",
+          title: "Carga Horaria Total",
         },
         {
           type: "paneldynamic",
