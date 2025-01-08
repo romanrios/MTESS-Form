@@ -30,6 +30,11 @@ export const surveyJson = {
         { type: "text", name: "coord_telefono", title: "Teléfono:" },
         { type: "text", name: "coord_mail", title: "Mail:" },
         { type: "text", name: "coord_horario", title: "Horario:" },
+        {
+          type: "text",
+          name: "coord_funcion",
+          title: "Descripción de su función en la institución que presenta:",
+        },
       ],
     },
 
