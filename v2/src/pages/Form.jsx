@@ -13,6 +13,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { LOGO_SF_BASE_64 } from "../utils/const.js";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const Form = () => {
   const { currentUser } = useAuth();
@@ -20,6 +21,15 @@ export const Form = () => {
   const [initialData, setInitialData] = useState(null);
   const [surveyModel, setSurveyModel] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    window.editSurvey = () => {
+      navigate("/Form");
+      setSurveyModel(new Model(surveyJson));
+    };
+  }, [navigate]);
 
   // Fetch data from Firestore
   useEffect(() => {

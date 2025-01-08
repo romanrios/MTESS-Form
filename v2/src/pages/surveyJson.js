@@ -3,7 +3,7 @@ export const surveyJson = {
   description: "Complete la información requerida en cada sección.",
   showProgressBar: "top",
   // showCompletedPage: "false",
-  completedHtml: ` <div style="text-align: center;"> <h3>Formulario completado</h3> <p style="margin: 40px auto 80px auto;">Ya puedes exportarlo como PDF para imprimirlo o vuelve a ingresar para editarlo.</p>`,
+  completedHtml: ` <div style="text-align: center;"> <h3>Formulario completado</h3> <p style="margin: 40px auto 80px auto;">Ya puedes exportarlo como PDF para imprimirlo o continuar editándolo.</p><button style="margin: 0 auto 50px auto" onclick="window.editSurvey()">Seguir editando</button>`,
   showQuestionNumbers: "off",
   pages: [
     {
