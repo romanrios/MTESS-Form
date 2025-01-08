@@ -303,7 +303,7 @@ export const surveyJson = {
               title: "Título/Certificación:",
             },
             {
-              type: "text",
+              type: "comment",
               name: "09_proyectos_equipo_observaciones",
               title: "Observaciones:",
             },
