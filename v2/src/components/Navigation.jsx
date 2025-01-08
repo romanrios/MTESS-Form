@@ -1,22 +1,18 @@
-import { NavLink, useNavigate, useLocation } from "react-router-dom"; // Import useLocation
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { showSuccessAlert } from "../utils/alerts";
+import "../css/Navigation.css";
 
 export const Navigation = () => {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation(); // Get current location
+  const location = useLocation();
 
   const handleLogout = async () => {
     navigate("/");
     await logout();
     showSuccessAlert("Sesión cerrada");
   };
-
-  const navLinkStyle = ({ isActive }) => ({
-    textDecoration: isActive ? "underline" : "none",
-    textUnderlineOffset: "8px",
-  });
 
   return (
     <nav className="Navigation">
@@ -25,7 +21,7 @@ export const Navigation = () => {
           <>
             {location.pathname.startsWith("/form/") && (
               <li>
-                <NavLink to="/admin/list" style={navLinkStyle}>
+                <NavLink to="/admin/list" className="nav-link">
                   Volver a la Lista
                 </NavLink>
               </li>
@@ -37,17 +33,17 @@ export const Navigation = () => {
         ) : (
           <>
             <li>
-              <NavLink to="/" style={navLinkStyle}>
+              <NavLink to="/" className="nav-link">
                 Iniciar sesión
               </NavLink>
             </li>
             <li>
-              <NavLink to="/register" style={navLinkStyle}>
+              <NavLink to="/register" className="nav-link">
                 Registrarse
               </NavLink>
             </li>
             <li>
-              <NavLink to="/admin" style={navLinkStyle}>
+              <NavLink to="/admin" className="nav-link">
                 Administrador
               </NavLink>
             </li>

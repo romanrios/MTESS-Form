@@ -1,0 +1,41 @@
+.Navigation {
+  .Navigation ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+  }
+
+  .Navigation li {
+    display: inline-block;
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: var(--grey); /* Hereda el color del texto */
+    text-underline-offset: 8px;
+  }
+
+  /* Estilo para cuando el enlace está activo */
+  .nav-link.active {
+    text-decoration: underline;
+    color: black;
+  }
+
+  /* Efecto hover */
+  .nav-link:hover {
+    color: var(--orange);
+  }
+
+  button {
+    background: none;
+    border: none;
+    color: var(--orange);
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  button:hover {
+    text-decoration: underline;
+  }
+}
