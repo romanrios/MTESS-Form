@@ -68,13 +68,12 @@ export const Form = () => {
         // Si es un panel, recorrer sus elementos hijos
         if (element.type === "panel" && element.elements) {
           element.elements.forEach((childElement) => {
-            if (initialData[childElement.name] !== undefined) {
-              childElement.defaultValue = initialData[childElement.name];
-            }
+            // Asignar el valor de initialData o un valor vacío
+            childElement.defaultValue = initialData[childElement.name] || "";
           });
-        } else if (initialData[element.name] !== undefined) {
-          // Para elementos de nivel superior
-          element.defaultValue = initialData[element.name];
+        } else {
+          // Para elementos de nivel superior, asignar valor o cadena vacía
+          element.defaultValue = initialData[element.name] || "";
         }
       });
     });
