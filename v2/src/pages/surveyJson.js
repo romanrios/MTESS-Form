@@ -72,6 +72,8 @@ export const surveyJson = {
         {
           type: "comment",
           name: "actividades_descripcion",
+          autoGrow: true,
+          allowResize: false,
           title:
             "Describa brevemente qué actividades realizan y qué se aportará para el desarrollo de la propuesta. (Ejemplo: Instalaciones, Maquinarias.) Acompañar de las fotos de las instalaciones.",
         },
@@ -90,6 +92,8 @@ export const surveyJson = {
         {
           type: "comment",
           name: "fund_necesidad",
+          autoGrow: true,
+          allowResize: false,
           title:
             "Necesidad de implementación de la propuesta / vinculación con necesidades productivas locales y regionales:",
         },
@@ -182,19 +186,25 @@ export const surveyJson = {
         {
           type: "comment",
           name: "proyectos_requisitos",
+          autoGrow: true,
+          allowResize: false,
           title:
             "Requisitos de ingreso de los beneficiarios según proyecto (describirlos). (Ej. Edad, formación).:",
         },
         {
           type: "comment",
           name: "proyectos_perfil",
+          autoGrow: true,
+          allowResize: false,
           title:
             "Perfil de egreso. Describa qué va a saber hacer la persona que finalice esta formación.",
         },
         {
-          type: "text",
+          type: "comment",
           name: "proyectos_unidades",
           title: "Unidades / módulos de dictado:",
+          autoGrow: true,
+          allowResize: false,
         },
         {
           type: "html",
@@ -247,12 +257,16 @@ export const surveyJson = {
         {
           type: "comment",
           name: "proyectos_modalidad",
+          autoGrow: true,
+          allowResize: false,
           title:
             "Modalidad de dictado. (Sólo para cursos virtuales y/o bimodales) Describir brevemente el encuadre de dictado (Plataforma. Sincrónico / Asincrónico. Videos)",
         },
         {
           type: "comment",
           name: "proyectos_horarios",
+          autoGrow: true,
+          allowResize: false,
           title: "Días y horarios de dictado",
         },
         {
@@ -305,6 +319,8 @@ export const surveyJson = {
             {
               type: "comment",
               name: "09_proyectos_equipo_observaciones",
+              autoGrow: true,
+              allowResize: false,
               title: "Observaciones:",
             },
             {

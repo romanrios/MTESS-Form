@@ -26,6 +26,8 @@ export const Form = () => {
     const newModel = new Model(surveyJson);
     newModel.locale = "es";
     setSurveyModel(newModel);
+
+    setInitialData(surveyModel.data);
   };
 
   // Fetch data from Firestore
@@ -94,7 +96,8 @@ export const Form = () => {
           : currentUser.uid;
 
       const docRef = doc(db, "formularios", uid);
-      await setDoc(docRef, survey.data, { merge: true });
+      await setDoc(docRef, survey.data /*, { merge: true }*/);
+
       showSuccessAlert("Datos enviados y almacenados exitosamente.");
     } catch (e) {
       showErrorAlert(e.message);

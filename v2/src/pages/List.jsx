@@ -1,17 +1,17 @@
 import "../css/List.css";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { db } from "../firebase-config";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import { useAuth } from "../contexts/AuthContext";
 import { showErrorAlert } from "../utils/alerts.js";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { useAuth } from "../contexts/AuthContext"; // Importa el contexto de autenticación
 
 export const List = () => {
-  const [users, setUsers] = useState([]); // State to store user data
-  const [isLoading, setIsLoading] = useState(true); // State to manage loading status
-  const { currentUser } = useAuth(); // Usa el contexto para obtener el usuario actual
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -46,7 +46,11 @@ export const List = () => {
         const formattedUsersData = usersData.map((user) => ({
           ...user,
           createdAt: user.createdAt
-            ? user.createdAt.toLocaleDateString()
+            ? user.createdAt.toLocaleDateString("es-AR", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              })
             : "N/A",
         }));
 
@@ -54,23 +58,23 @@ export const List = () => {
       } catch (e) {
         showErrorAlert(e.code); // Log any errors
       } finally {
-        setIsLoading(false); // Set loading status to false
+        setIsLoading(false);
       }
     };
     fetchUsers(); // Call the fetch function
   }, [currentUser]); // Agregar currentUser como dependencia por si cambia
 
   const handleShowForm = (userId) => {
-    navigate(`/form/${userId}`); // Navigate to the form page with the user ID
+    navigate(`/form/${userId}`);
   };
 
   if (isLoading) {
-    return <p>Cargando usuarios...</p>; // Show loading message while fetching data
+    return <p>Cargando usuarios...</p>;
   }
 
   return (
     <section className="List">
-      <h2>Lista de Usuarios</h2>
+      <h2>Lista de Usuarios Registrados</h2>
       <div className="List_table_container">
         <table>
           <thead>

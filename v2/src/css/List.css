@@ -23,15 +23,16 @@
     text-align: center;
     font-weight: 600;
     background-color: rgba(128, 128, 128, 0.164);
-    text-transform: uppercase;
-    font-size: 12px;
+    /* text-transform: uppercase; */
+    /* font-size: 12px; */
   }
 
   td,
   th {
     padding: 3px;
-    border: solid 1px grey;
+    border: solid 1px rgb(182, 182, 182);
     vertical-align: middle;
+    padding: 7px;
   }
 
   .List_td_ver {
